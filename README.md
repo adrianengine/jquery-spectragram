@@ -1,5 +1,4 @@
-#SpectragramJS v.0.1
-##An Instagram API plugin for jQuery
+#jQuery Spectragram - An Instagram API plugin for jQuery
 
 **spectragram.js** is a jQuery plugin using the **Instagram API** to fetch and display user, popular or tags photo feeds inside a list or any container you define.
 
@@ -18,13 +17,13 @@ In order to use the plugin you need to register an application at [Instagram Dev
 
 1. Be sure to have jQuery script included and then include the **spectragram.js** script right before the ``` </body>``` tag.
 
-```
+```javascript
  <script type="text/javascript" src="js/spectragram.js"></script>
 ```
 
 2. Call the **spectragram function** on your script and set your Instagram ```accessToken```, ```clientID``` and the query:
 
-```
+```javascript
 $('ul').spectragram('getRecentTagged',{
 	accessToken: '[your-instagram-access-token]',
 	clientID: '[your-instagram-application-clientID]',
@@ -36,7 +35,7 @@ $('ul').spectragram('getRecentTagged',{
 
 ##Configuration
 
-```
+```javascript
 .spectragram( Method, [Options] )
 
 Method: getUserFeed, getPopular or getRecentTagged functions
@@ -47,7 +46,7 @@ Options: An array to configure the properties of spectragram
 **getUserFeed**  
 Get the most recent media published by a user.
 
-```
+```javascript
 $('ul').spectragram('getUserFeed',{
 	accessToken: '[your-instagram-access-token]',
 	clientID: '[your-instagram-application-clientID]',
@@ -58,7 +57,7 @@ $('ul').spectragram('getUserFeed',{
 **getPopular**  
 Get a list of what media is most popular at the moment.
 
-```
+```javascript
 $('ul').spectragram('getPopular',{
 	accessToken: '[your-instagram-access-token]',
 	clientID: '[your-instagram-application-clientID]'
@@ -68,7 +67,7 @@ $('ul').spectragram('getPopular',{
 **getRecentTagged**  
 Get a list of recently tagged media.
 
-```
+```javascript
 $('ul').spectragram('getRecentTagged',{
 	accessToken: '[your-instagram-access-token]',
 	clientID: '[your-instagram-application-clientID]',
@@ -102,7 +101,7 @@ The size of the photos. 'small', 'medium' or 'big'. *Default: 'medium'*
 The HTML tag to wrap every result. *Default: '\<li>\</li>'*
 
 ###Example
-```
+```javascript
 $('div').spectragram({
 	accessToken: '[your-instagram-access-token]',
 	clientID: '[your-instagram-application-clientID]',
