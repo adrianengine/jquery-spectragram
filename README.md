@@ -17,7 +17,7 @@ In order to use the plugin you need to register an application at [Instagram Dev
 
 1. Be sure to have jQuery script included and then include the **spectragram.js** script right before the ``` </body>``` tag.
 
-```javascript
+```html
  <script type="text/javascript" src="js/spectragram.js"></script>
 ```
 
