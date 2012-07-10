@@ -2,6 +2,11 @@
 
 **spectragram.js** is a jQuery plugin using the **Instagram API** to fetch and display user, popular or tags photo feeds inside a list or any container you define.
 
+###[Visit Project Page](http://lab.adrianquevedo.com/jquery-spectragram)
+
+###[Download spectragram.js (minified 3kb)](https://raw.github.com/adrianengine/jquery-spectragram/master/spectragram.min.js)
+
+
 #Features
 
 * Get the most recent media published by a user, the most popular media at the moment, or recently tagged media from Instagram API
@@ -18,6 +23,7 @@ In order to use the plugin you need to register an application at [Instagram Dev
 1. Be sure to have jQuery script included and then include the **spectragram.js** script right before the ``` </body>``` tag.
 
 ```html
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
  <script type="text/javascript" src="js/spectragram.js"></script>
 ```
 
@@ -114,7 +120,7 @@ $('div').spectragram({
 
 #License
 
-Dual licensed under the MIT or GPL Version 2 licenses. You are free to use this plugin in commercial projects as long as the copyright header is left intact.
+Licensed under the MIT license. You are free to use this plugin in commercial projects as long as the copyright header is left intact.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
