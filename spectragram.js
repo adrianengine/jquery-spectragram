@@ -8,7 +8,7 @@
  * This plugin uses the Instagram(tm) API and is not endorsed or certified by Instagram or Burbn, inc. 
  * All Instagram(tm) logos and trademarks displayed on this plugin are property of Burbn, Inc.
  *
- * Date: Thu Jul 04 15:13:47 2012 -0500
+ * Date: Thu Jul 15 14:05:02 2012 -0500
  */
  
 // Utility for older browsers
@@ -22,10 +22,7 @@ if (typeof Object.create !== 'function') {
 
 (function ($, window, document, undefined) {
 	
-	var accessData = {
-	}
-
-    var Instagram = {
+	var Instagram = {
 
         //Initialize function
         init: function (options, elem) {
