@@ -5,8 +5,8 @@
 <!-- Meta Tags -->
 <meta charset="utf-8" />
 <meta name="author" content="Adrian Quevedo" />
-<meta name="keywords" content="jquery, open source" />
-<meta name="description" content="Adrian Quevedo Web Development Lab" />
+<meta name="keywords" content="jquery, open source, spectragram, instagram api" />
+<meta name="description" content="Spectragram is a jQuery plugin using the Instagram API to fetch and display user, popular or tags photo feeds inside a list or any container you define." />
 <meta name="robots" content="all" />
 <!-- Mobile viewport optimized: j.mp/bplateviewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,7 +16,7 @@
 <link type="text/plain" rel="author" href="humans.txt" />
 <!-- CSS-->
 <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="css/style.css" type="text/css" media="all" title="AQ:Web Lab" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" title="Spectragram" />
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
 <!-- ANALYTICS -->
@@ -43,7 +43,7 @@
         <h2>An Instagram API plugin for jQuery</h2>
         <p><strong>spectragram.js</strong> is a jQuery plugin using the <strong>Instagram API</strong> to fetch and display user, popular or tags photo feeds inside a list or any container you define.</p>
         <div class="cAction">
-        	<p><a href="https://raw.github.com/adrianengine/jquery-spectragram/master/spectragram.min.js" class="download" target="_blank">Download Spectragram.min.js</a> Minified 3kb</p>
+            <p><a href="https://raw.github.com/adrianengine/jquery-spectragram/master/spectragram.min.js" class="download" target="_blank">Download Spectragram.min.js</a> Minified 3kb</p>
         </div>
         <footer>
             <p>Developed by <span class="aqLogo">Adrian Quevedo</span> at <span class="nucleoLogo">Nucleo Digital S.A.S</span></p>
@@ -63,19 +63,24 @@
             <p>In order to use the plugin you need to register an application at <a href="http://instagram.com/developer/" target="_blank">Instagram Developers</a>, get a <strong>client_id</strong> and <a href="http://instagram.com/developer/authentication/" target="_blank">recieve an access_token</a>.</p>
             <h3>Simple usage</h3>
             <ol>
-                <li>Be sure to have jQuery script included and then include the <strong>spectragram.js</strong> script right before the <code>&lt;/body&gt;</code> tag.</li>
-            </ol>
-            <pre><code> &lt;script type="text/javascript" src="js/spectragram.js"&gt;&lt;/script&gt;
+                <li>Be sure to have jQuery script included and then include the <strong>spectragram.js</strong> script right before the <code>&lt;/body&gt;</code> tag.
+                    <pre><code> &lt;script type="text/javascript" src="js/spectragram.js"&gt;&lt;/script&gt;
 </code></pre>
-            <ol>
-                <li>Call the <strong>spectragram function</strong> on your script and set your Instagram <code>accessToken</code>, <code>clientID</code> and the query:</li>
-            </ol>
-            <pre><code>$('ul').spectragram('getRecentTagged',{
+                </li>
+                <li>Set your Instagram <code>accessToken</code>, <code>clientID</code> and the query:
+                    <pre><code>jQuery.fn.spectragram.accessData = {
     accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]',
+    clientID: '[your-instagram-application-clientID]'        
+};
+</code></pre>
+                </li>
+                <li>Call <strong>spectagram</strong> function on the container element and pass it your query:
+                    <pre><code>$('ul').spectragram('getRecentTagged',{
     query: 'converse'
 });
 </code></pre>
+                </li>
+            </ol>
             <p><em>This example will show 10 or less results for photos tagged &ldquo;converse&rdquo; in a list, &ldquo;medium&rdquo; sized.</em></p>
             <h2>Configuration</h2>
             <pre><code>.spectragram( Method, [Options] )
@@ -88,29 +93,25 @@ Options: An array to configure the properties of spectragram
             <p><strong>getUserFeed</strong><br/>
                 Get the most recent media published by a user.</p>
             <pre><code>$('ul').spectragram('getUserFeed',{
-    accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]',
     query: 'adrianengine'
 });
 </code></pre>
-            <ul class="demoFeed userFeed"></ul>
+            <ul class="demoFeed userFeed">
+            </ul>
             <p><strong>getPopular</strong><br/>
                 Get a list of what media is most popular at the moment.</p>
-            <pre><code>$('ul').spectragram('getPopular',{
-    accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]'
-});
+            <pre><code>$('ul').spectragram('getPopular');
 </code></pre>
-            <ul class="demoFeed popularFeed"></ul>
+            <ul class="demoFeed popularFeed">
+            </ul>
             <p><strong>getRecentTagged</strong><br/>
                 Get a list of recently tagged media.</p>
             <pre><code>$('ul').spectragram('getRecentTagged',{
-    accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]',
     query: 'converse'
 });
 </code></pre>
-            <ul class="demoFeed tagsFeed"></ul>
+            <ul class="demoFeed tagsFeed">
+            </ul>
             <h3>Options</h3>
             <p><strong>accessToken</strong> (required)<br/>
                 <em>Type: String</em><br/>
@@ -131,9 +132,12 @@ Options: An array to configure the properties of spectragram
                 <em>Type: String</em><br/>
                 The HTML tag to wrap every result. <em>Default: &lsquo;&lt;li>&lt;/li>&rsquo;</em></p>
             <h3>Example</h3>
-            <pre><code>$('div').spectragram({
+            <pre><code>jQuery.fn.spectragram.accessData = {
     accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]',
+    clientID: '[your-instagram-application-clientID]'        
+};
+
+$('div').spectragram({
     query: 'converse',
     max: 14,
     size: 'big',
@@ -141,7 +145,7 @@ Options: An array to configure the properties of spectragram
 });
 </code></pre>
             <h1>License</h1>
-            <p>Dual licensed under the MIT or GPL Version 2 licenses. You are free to use this plugin in commercial projects as long as the copyright header is left intact.</p>
+            <p>Licensed under the MIT licenses. You are free to use this plugin in commercial projects as long as the copyright header is left intact.</p>
             <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &ldquo;Software&rdquo;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
             <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
             <p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
@@ -156,26 +160,34 @@ Options: An array to configure the properties of spectragram
 </div>
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
-<!-- scripts concatenated and minified--> 
-<script src="spectragram.min.js"></script> 
+<!-- script concatenated and minified--> 
+<script src="spectragram.js"></script> 
 <script>
-$('.userFeed').spectragram('getUserFeed', {
-	accessToken: '2136707.f59def8.6d0ef58d2efc40d4b4e1798415f9c09a',
-	clientID: '12e27430fe054c72839c5f16f86177e1',
-	query: 'adrianengine', 
-	size: 'small', 
-	max: 8});
-$('.popularFeed').spectragram('getPopular', {
-	accessToken: '2136707.f59def8.6d0ef58d2efc40d4b4e1798415f9c09a',
-	clientID: '12e27430fe054c72839c5f16f86177e1',
-	size: 'small',
-	max: 8});
-$('.tagsFeed').spectragram('getRecentTagged', {
-	accessToken: '2136707.f59def8.6d0ef58d2efc40d4b4e1798415f9c09a',
-	clientID: '12e27430fe054c72839c5f16f86177e1',
-	query: 'converse',
-	size: 'small',
-	max: 8});
+
+	//Set your Instagram accessToken, clientID and the query:
+	jQuery.fn.spectragram.accessData = {
+		accessToken: '2136707.f59def8.6d0ef58d2efc40d4b4e1798415f9c09a',
+		clientID: '12e27430fe054c72839c5f16f86177e1'        
+	};
+	
+	//Call spectagram function on the container element and pass it your query
+	//Get the most recent media published by a user.
+	$('.userFeed').spectragram('getUserFeed', {
+		query: 'adrianengine', //this gets adrianengine's photo feed
+		size: 'small',
+		max: 8});
+		
+	//Get a list of what media is most popular at the moment.
+	$('.popularFeed').spectragram('getPopular', {
+		size: 'small',
+		max: 8});
+		
+	//Get a list of recently tagged media
+	$('.tagsFeed').spectragram('getRecentTagged', {
+		query: 'converse',
+		size: 'small',
+		max: 8});
+
 </script>
 </body>
 </html>

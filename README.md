@@ -13,6 +13,7 @@
 * Display the results on list items or any other HTML tag you define
 * Define the size of the pictures (small, medium, big)
 * Use your own Instagram application ClientID and AccessToken
+* More features coming soon!
 
 #How to use
 
@@ -27,12 +28,18 @@ In order to use the plugin you need to register an application at [Instagram Dev
  <script type="text/javascript" src="js/spectragram.js"></script>
 ```
 
-2. Call the **spectragram function** on your script and set your Instagram ```accessToken```, ```clientID``` and the query:
+2. Set your Instagram ```accessToken```, ```clientID``` and the query:
+
+```javascript
+jQuery.fn.spectragram.accessData = {
+	accessToken: '[your-instagram-access-token]',
+	clientID: '[your-instagram-application-clientID]'        
+};
+```
+3. Call **spectagram** function on the container element and pass it your query:
 
 ```javascript
 $('ul').spectragram('getRecentTagged',{
-	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]',
 	query: 'converse'
 });
 ```
@@ -54,8 +61,6 @@ Get the most recent media published by a user.
 
 ```javascript
 $('ul').spectragram('getUserFeed',{
-	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]',
 	query: 'adrianengine'
 });
 ```
@@ -64,10 +69,7 @@ $('ul').spectragram('getUserFeed',{
 Get a list of what media is most popular at the moment.
 
 ```javascript
-$('ul').spectragram('getPopular',{
-	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]'
-});
+$('ul').spectragram('getPopular');
 ```
 
 **getRecentTagged**  
@@ -75,8 +77,6 @@ Get a list of recently tagged media.
 
 ```javascript
 $('ul').spectragram('getRecentTagged',{
-	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]',
 	query: 'converse'
 });
 ```
@@ -108,9 +108,12 @@ The HTML tag to wrap every result. *Default: '\<li>\</li>'*
 
 ###Example
 ```javascript
-$('div').spectragram({
+jQuery.fn.spectragram.accessData = {
 	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]',
+	clientID: '[your-instagram-application-clientID]'        
+};
+
+$('div').spectragram({
 	query: 'converse',
 	max: 14,
 	size: 'big',

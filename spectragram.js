@@ -21,6 +21,9 @@ if (typeof Object.create !== 'function') {
 }
 
 (function ($, window, document, undefined) {
+	
+	var accessData = {
+	}
 
     var Instagram = {
 
@@ -33,6 +36,8 @@ if (typeof Object.create !== 'function') {
 
             self.api = 'https://api.instagram.com/v1',
 			
+			self.accessData = $.fn.spectragram.accessData,
+						
 			self.options = $.extend({}, $.fn.spectragram.options, options);
         },
 
@@ -40,7 +45,7 @@ if (typeof Object.create !== 'function') {
 		//Get the most recent media published by a user.
         getRecentMedia: function ( userID ) {
 			var self = this,
-				getData = '/users/' + userID + '/media/recent/?' + self.options.clientID + '&access_token='+ self.options.accessToken +'';
+				getData = '/users/' + userID + '/media/recent/?' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken +'';
 				
                 self.fetch(getData).done(function ( results ) {
                     self.display(results);
@@ -50,7 +55,7 @@ if (typeof Object.create !== 'function') {
 		//Search for a user by name.
         getUserFeed: function () {
 			var self = this,
-				getData = '/users/search?q=' + self.options.query + '&count=' + self.options.max + '&client_id=' + self.options.clientID + '';
+				getData = '/users/search?q=' + self.options.query + '&count=' + self.options.max + '&client_id=' + self.accessData.clientID + '';
 
 				self.fetch(getData).done(function ( results ) {
 					if(results.data.length){
@@ -65,7 +70,7 @@ if (typeof Object.create !== 'function') {
         //Get a list of what media is most popular at the moment
         getPopular: function () {
             var self = this,
-                getData = '/media/popular?client_id=' + self.options.clientID + '&access_token='+ self.options.accessToken + '';
+                getData = '/media/popular?client_id=' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken + '';
                 
                 self.fetch(getData).done(function ( results ) {
                     self.display(results);
@@ -76,7 +81,7 @@ if (typeof Object.create !== 'function') {
         //Get a list of recently tagged media
         getRecentTagged: function () {
             var self = this,
-                getData = '/tags/' + self.options.query + '/media/recent?client_id=' + self.options.clientID + '&access_token='+ self.options.accessToken + '';
+                getData = '/tags/' + self.options.query + '/media/recent?client_id=' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken + '';
                 
                 self.fetch(getData).done(function ( results ) {                    
 					if(results.data.length){
@@ -99,7 +104,7 @@ if (typeof Object.create !== 'function') {
             });
         },
 
-        display: function (results) {console.log(results);
+        display: function (results) {
             var self = this,
                 setSize = self.options.size,
                 size, max = (self.options.max >= results.data.length) ? results.data.length : self.options.max;
@@ -125,25 +130,36 @@ if (typeof Object.create !== 'function') {
     };
 	
 	jQuery.fn.spectragram = function ( method, options ) {
-        this.each( function () {
-            var instagram = Object.create( Instagram );
-            instagram.init( options, this );			
-			if( instagram[method] ) { 
-                return instagram[method]( this );
-            }else{ 
-                $.error( 'Method ' + method + ' does not exist on jQuery.spectragram' );
-            }
-        });
+		
+		if(jQuery.fn.spectragram.accessData.clientID){
+		
+			this.each( function () {
+				var instagram = Object.create( Instagram );
+				instagram.init( options, this );		
+				if( instagram[method] ) { 
+					return instagram[method]( this );
+				}else{ 
+					$.error( 'Method ' + method + ' does not exist on jQuery.spectragram' );
+				}
+			});
+		
+		}else{
+			$.error( 'You must define an accessToken and a clientID on jQuery.spectragram' );
+		}
     };
 
     //Plugin Default Options
     jQuery.fn.spectragram.options = {
-        accessToken: null,
-		clientID: null,
 		max: 10,
 		query: 'coffee',
 		size: 'medium',
         wrapEachWith: '<li></li>'        
+    };
+	
+	//Instagram Access Data
+	jQuery.fn.spectragram.accessData = {
+        accessToken: null,
+		clientID: null        
     };
 
 })(jQuery, window, document);
