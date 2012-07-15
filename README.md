@@ -133,6 +133,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  
 #Changelog
 
+v0.01 (2012-Jul-15) - Added accessData method to manage once all Instagram credentials.   
 v0.01 (2012-Jul-04) - Release
 
 #Further notes
