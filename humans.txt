@@ -1,14 +1,13 @@
 /* TEAM */
 	UI/Front-end/Back-end developer: Adrian Quevedo
-	Contact: hello [at] adrianquevedo.com
 	Twitter: @adrianengine
 	From: Bogotá, Colombia	
 
 /* SITE */
-	Last update:2012/06/30
+	Last update:2012/Jul/24
 	Language: English
 	Doctype: HTML5
-	IDE/Software: Sublime text 2
+	IDE/Software: Fireworks, Sublime Text 2
 	             
 
               _      _                ____                           _       
