@@ -99,7 +99,7 @@
                 <li>Set your Instagram <code>accessToken</code>, <code>clientID</code> and the query:
                     <pre><code>jQuery.fn.spectragram.accessData = {
     accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]'        
+    clientID: '[your-instagram-application-clientID]'
 };
 </code></pre>
                 </li>
@@ -157,14 +157,14 @@ Options: An array to configure the properties of spectragram
             <h3>Example</h3>
             <pre><code>jQuery.fn.spectragram.accessData = {
     accessToken: '[your-instagram-access-token]',
-    clientID: '[your-instagram-application-clientID]'        
+    clientID: '[your-instagram-application-clientID]'
 };
 
 $('div').spectragram({
     query: 'converse',
     max: 14,
     size: 'big',
-    wrapEachWith: '&lt;p&gt;&lt;/p&gt;'}
+    wrapEachWith: '&lt;p&gt;&lt;/p&gt;'
 });
 </code></pre>
             <h1>License</h1>
@@ -183,9 +183,9 @@ $('div').spectragram({
 </footer>
 <!-- Twitter Button Script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
-<script>window.jQuery || document.write('<script src="script/jquery-1.7.2.min.js">\x3C/script>')</script> 
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="script/jquery-1.7.2.min.js">\x3C/script>')</script>
 <!-- script concatenated and minified-->
 <script src="spectragram.min.js"></script>
 <script src="script/site.js"></script>
@@ -193,37 +193,37 @@ $('div').spectragram({
 <!-- SPECTRAGRAM DEMOS SCRIPT -->
 <script>
 $(document).ready(function(){
-	
+
 	/*
 		Read the Documentation ( https://github.com/adrianengine/jquery-spectragram )
-		
+
 		Don't forget to set your Instagram accessToken, clientID and the query:
-		
+
 		jQuery.fn.spectragram.accessData = {
 			accessToken: '[your-instagram-access-token]',
-			clientID: '[your-instagram-application-clientID]'        
+			clientID: '[your-instagram-application-clientID]'
 		};
-	*/	
-	
+	*/
+
 	//Call spectagram function on the container element and pass it your query
 	//Get the most recent media published by a user.
 	$('.userFeed').spectragram('getUserFeed', {
 		query: 'adrianengine', //this gets adrianengine's photo feed
 		size: 'small',
 		max: 4});
-		
+
 	//Get a list of what media is most popular at the moment.
 	$('.popularFeed').spectragram('getPopular', {
 		size: 'small',
 		max: 4});
-		
+
 	//Get a list of recently tagged media
 	$('.tagsFeed').spectragram('getRecentTagged', {
 		query: 'converse', //this gets the recent photo feed tagged with the word: converse
 		size: 'small',
 		max: 4});
-	
-	//Set the wrapper HTML tag of the photos	
+
+	//Set the wrapper HTML tag of the photos
 	$('.introPics').spectragram('getRecentTagged', {
 		query: 'vans', //this gets the recent photo feed tagged with the word: vans
 		max: 2,
