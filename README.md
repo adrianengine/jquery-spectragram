@@ -33,7 +33,7 @@ In order to use the plugin you need to register an application at [Instagram Dev
 ```javascript
 jQuery.fn.spectragram.accessData = {
 	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]'        
+	clientID: '[your-instagram-application-clientID]'
 };
 ```
 3. Call **spectagram** function on the container element and pass it your query:
@@ -56,7 +56,7 @@ Method: getUserFeed, getPopular or getRecentTagged functions
 Options: An array to configure the properties of spectragram
 ```
 ###Methods
-**getUserFeed**  
+**getUserFeed**
 Get the most recent media published by a user.
 
 ```javascript
@@ -65,14 +65,14 @@ $('ul').spectragram('getUserFeed',{
 });
 ```
 
-**getPopular**  
+**getPopular**
 Get a list of what media is most popular at the moment.
 
 ```javascript
 $('ul').spectragram('getPopular');
 ```
 
-**getRecentTagged**  
+**getRecentTagged**
 Get a list of recently tagged media.
 
 ```javascript
@@ -82,42 +82,42 @@ $('ul').spectragram('getRecentTagged',{
 ```
 
 ###Options
-**accessToken** (required)  
-*Type: String*  
+**accessToken** (required)
+*Type: String*
 This is your Instagram Application AccessToken. *Default: Null*
 
-**clientID** (required)  
-*Type: String*  
+**clientID** (required)
+*Type: String*
 This is your Instagram Application Client ID. *Default: Null*
 
-**query** (required)   
-*Type: String*  
+**query** (required)
+*Type: String*
 The string to search. *Default: 'coffee'*
 
-**max**  
-*Type: Number*  
+**max**
+*Type: Number*
 The maximum number of results to show. *Default: 10*
 
-**size**  
-*Type: String*  
+**size**
+*Type: String*
 The size of the photos. 'small', 'medium' or 'big'. *Default: 'medium'*
 
-**wrapEachWith**  
-*Type: String*  
+**wrapEachWith**
+*Type: String*
 The HTML tag to wrap every result. *Default: '\<li>\</li>'*
 
 ###Example
 ```javascript
 jQuery.fn.spectragram.accessData = {
 	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]'        
+	clientID: '[your-instagram-application-clientID]'
 };
 
 $('div').spectragram({
 	query: 'converse',
 	max: 14,
 	size: 'big',
-	wrapEachWith: '<p></p>'}
+	wrapEachWith: '<p></p>'
 });
 ```
 
@@ -129,11 +129,11 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
- 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 #Changelog
 
-v0.02 (2012-Jul-15) - Added accessData method to manage once all Instagram credentials.   
+v0.02 (2012-Jul-15) - Added accessData method to manage once all Instagram credentials.
 v0.01 (2012-Jul-04) - Release
 
 #Further notes
