@@ -152,7 +152,7 @@ if (typeof Object.create !== 'function') {
 		max: 10,
 		query: 'coffee',
 		size: 'medium',
-        wrapEachWith: '<li></li>',
+		wrapEachWith: '<li></li>',
 		complete : null 		
     };
 	
