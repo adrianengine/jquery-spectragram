@@ -123,6 +123,8 @@ if (typeof Object.create !== 'function') {
 					self.$elem.append($(self.options.wrapEachWith).append("<a target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
 				}
             }
+			
+			self.options.complete.call(self);
         }
     };
 	
@@ -150,7 +152,8 @@ if (typeof Object.create !== 'function') {
 		max: 10,
 		query: 'coffee',
 		size: 'medium',
-        wrapEachWith: '<li></li>'        
+        wrapEachWith: '<li></li>',
+		complete : null 		
     };
 	
 	//Instagram Access Data
