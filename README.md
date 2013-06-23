@@ -106,6 +106,10 @@ The size of the photos. 'small', 'medium' or 'big'. *Default: 'medium'*
 *Type: String*
 The HTML tag to wrap every result. *Default: '\<li>\</li>'*
 
+**complete**
+*Type: Function*
+A callback function to execute after the display of the photos. *Default: 'null'*
+
 ###Example
 ```javascript
 jQuery.fn.spectragram.accessData = {
@@ -117,7 +121,8 @@ $('div').spectragram({
 	query: 'converse',
 	max: 14,
 	size: 'big',
-	wrapEachWith: '<p></p>'
+	wrapEachWith: '<p></p>',
+	complete: alert('Done!');
 });
 ```
 
