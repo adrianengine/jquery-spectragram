@@ -124,7 +124,9 @@ if (typeof Object.create !== 'function') {
 				}
             }
 			
-			self.options.complete.call(self);
+			if (typeof self.options.complete === 'function') {
+				self.options.complete.call(self);
+			}
         }
     };
 	
