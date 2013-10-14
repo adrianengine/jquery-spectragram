@@ -52,7 +52,7 @@ if (typeof Object.create !== 'function') {
 		//Search for a user by name.
         getUserFeed: function () {
 			var self = this,
-				getData = '/users/search?q=' + self.options.query + '&count=' + self.options.max + '&client_id=' + self.accessData.clientID + '';
+				getData = '/users/search?q=' + self.options.query + '&count=' + self.options.max + '&access_token='+ self.accessData.accessToken + '';
 
 				self.fetch(getData).done(function ( results ) {
 					if(results.data.length){
