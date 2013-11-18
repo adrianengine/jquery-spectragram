@@ -63,6 +63,11 @@ Get the most recent media published by a user.
 $('ul').spectragram('getUserFeed',{
 	query: 'adrianengine'
 });
+
+$('ul').spectragram('getUserFeed',{
+	query: 'luizvinicius73',
+	callOnUserInfo: function(obj){}
+});
 ```
 
 **getPopular**
