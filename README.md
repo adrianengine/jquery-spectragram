@@ -32,8 +32,8 @@ In order to use the plugin you need to register an application at [Instagram Dev
 
 ```javascript
 jQuery.fn.spectragram.accessData = {
-	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]'
+	accessToken: 'your-instagram-access-token',
+	clientID: 'your-instagram-application-clientID'
 };
 ```
 3. Call **spectagram** function on the container element and pass it your query:
