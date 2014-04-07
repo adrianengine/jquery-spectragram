@@ -113,8 +113,8 @@ A callback function to execute after the display of the photos. *Default: 'null'
 ###Example
 ```javascript
 jQuery.fn.spectragram.accessData = {
-	accessToken: '[your-instagram-access-token]',
-	clientID: '[your-instagram-application-clientID]'
+	accessToken: 'your-instagram-access-token',
+	clientID: 'your-instagram-application-clientID'
 };
 
 $('div').spectragram({
