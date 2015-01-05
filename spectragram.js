@@ -120,6 +120,7 @@ if (typeof Object.create !== 'function') {
 					else {
 						size = results.data[i].images.standard_resolution.url;
 					}
+					size = size.replace('http://','//');
 					self.$elem.append($(self.options.wrapEachWith).append("<a title='" + results.data[i].caption.text + "' target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
 				}
             }
