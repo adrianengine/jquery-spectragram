@@ -44,9 +44,18 @@ if (typeof Object.create !== 'function') {
 			var self = this,
 				getData = '/users/' + userID + '/media/recent/?' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken +'';
 				
-                self.fetch(getData).done(function ( results ) {
-                    self.display(results);
-                });
+			self.fetch(getData).done(function (results) {
+			  if (results.meta.code === 200)
+			    self.display(results);
+			  if (!results.data) {
+			    self.options.onDone(results.meta.code);
+			    return;
+			  }
+			  else if (results.data.length === 0)
+			    self.options.onDone(401);
+        else
+			  self.options.onDone(results.meta.code);
+      });
 		},
 		
 		//Search for a user by name.
@@ -56,8 +65,9 @@ if (typeof Object.create !== 'function') {
 
 				self.fetch(getData).done(function ( results ) {
 					if(results.data.length){
-						self.getRecentMedia(results.data[0].id);
-					}else{
+					  self.getRecentMedia(results.data[0].id);
+					} else {
+					  self.options.onDone && self.options.onDone(402);
 						$.error('Spectagram.js - Error: the username ' + self.options.query + ' does not exist.');
 					};
                 });        
@@ -69,10 +79,13 @@ if (typeof Object.create !== 'function') {
             var self = this,
                 getData = '/media/popular?client_id=' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken + '';
                 
-                self.fetch(getData).done(function ( results ) {
-                    self.display(results);
-                });
-        },
+            self.fetch(getData).done(function (results) {
+              if (results.meta.code == 200)
+                self.display(results);
+
+              self.options.onDone && self.options.onDone(results.meta.code);
+            });
+    },
 
         //Tags
         //Get a list of recently tagged media
@@ -81,9 +94,11 @@ if (typeof Object.create !== 'function') {
                 getData = '/tags/' + self.options.query + '/media/recent?client_id=' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken + '';
                 
                 self.fetch(getData).done(function ( results ) {                    
-					if(results.data.length){
-						self.display(results);
-					}else{
+          if (results.data.length) {
+            self.display(results);
+            self.options.onDone && self.options.onDone(results.meta.code);
+          } else {
+            self.options.onDone && self.options.onDone(401)
 						$.error('Spectagram.js - Error: the tag ' + self.options.query + ' does not have results.');
 					};
                 });
@@ -120,7 +135,7 @@ if (typeof Object.create !== 'function') {
 					else {
 						size = results.data[i].images.standard_resolution.url;
 					}
-					self.$elem.append($(self.options.wrapEachWith).append("<a title='" + results.data[i].caption.text + "' target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
+					self.$elem.append($(self.options.wrapEachWith).append("<a title='" + (results.data[i].caption > 0 ? results.data[i].caption.text : "") + "' target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
 				}
             }
 			
@@ -151,11 +166,12 @@ if (typeof Object.create !== 'function') {
 
     //Plugin Default Options
     jQuery.fn.spectragram.options = {
-		max: 10,
-		query: 'coffee',
-		size: 'medium',
-		wrapEachWith: '<li></li>',
-		complete : null 		
+	    max: 10,
+	    query: 'coffee',
+	    size: 'medium',
+	    wrapEachWith: '<li></li>',
+	    complete: null,
+      onDone: null
     };
 	
 	//Instagram Access Data
