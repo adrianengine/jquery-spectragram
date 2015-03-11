@@ -47,7 +47,11 @@ if (typeof Object.create !== 'function') {
 			self.fetch(getData).done(function (results) {
 			  if (results.meta.code === 200)
 			    self.display(results);
-			  if (results.data.length === 0)
+			  if (!results.data) {
+			    self.options.onDone(results.meta.code);
+			    return;
+			  }
+			  else if (results.data.length === 0)
 			    self.options.onDone(401);
         else
 			  self.options.onDone(results.meta.code);
