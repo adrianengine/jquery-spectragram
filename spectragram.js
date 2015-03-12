@@ -120,7 +120,23 @@ if (typeof Object.create !== 'function') {
 					else {
 						size = results.data[i].images.standard_resolution.url;
 					}
-					self.$elem.append($(self.options.wrapEachWith).append("<a title='" + results.data[i].caption.text + "' target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
+
+					var titleIMG;
+					// Skip if the caption is empty.
+					if ( results.data[i].caption != null ) {
+						/**
+						* 1. First it creates a dummy element <span/>
+						* 2. And then puts the caption inside the element created previously.
+						* 3. Extracts the html caption (this allows html codes to be included).
+						* 4. Lastly, the most important part, create the Title attribute using double quotes
+						* to enclose the text. This fixes the bug when the caption retrieved from Instagram 
+						* includes single quotes which breaks the Title attribute.
+						*/
+						titleIMG = 'title="' + $('<span/>').text(results.data[i].caption.text).html() +'"';
+					}
+
+					// Now concatenate the titleIMG generated.
+					self.$elem.append($(self.options.wrapEachWith).append("<a " + titleIMG + " target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
 				}
             }
 			
