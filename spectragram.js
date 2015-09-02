@@ -56,7 +56,12 @@ if (typeof Object.create !== 'function') {
 
 				self.fetch(getData).done(function ( results ) {
 					if(results.data.length){
-						self.getRecentMedia(results.data[0].id);
+						// only request media for exact match, otherwise 400 error
+						for (var length = results.data.length, i = 0; i < length; i++) {
+				        		if ( results.data[i].username === self.options.query) {
+				            			self.getRecentMedia(results.data[i].id);
+				           		}
+						}
 					}else{
 						$.error('Spectagram.js - Error: the username ' + self.options.query + ' does not exist.');
 					};
