@@ -50,22 +50,25 @@ if ( typeof Object.create !== "function" ) {
 		// Search for a user by name.
         getUserFeed: function () {
 			var self = this,
-				getData = "/users/search?q=" + self.options.query + "&count=" + self.options.max + "&access_token=" + self.accessToken + "";
+				getData = "/users/search?q=" + self.options.query + "&count=" + self.options.max + "&access_token=" + self.accessToken + "",
+				isUsernameValid = false;
 
 				self.fetch( getData ).done( function ( results ) {
 					if ( results.data.length ) {
-						// Only request media for exact match, otherwise 400 error
+						// Only request media for exact match of username
 						for ( var length = results.data.length, i = 0; i < length; i++ ) {
 							if ( results.data[i].username === self.options.query ) {
 								self.getRecentMedia( results.data[i].id );
+								isUsernameValid = true;
 							}
 						}
-					} else {
+					}
+
+					if ( isUsernameValid === false ) {
 						$.error( "Spectragram.js - Error: the username " + self.options.query + " does not exist." );
 					}
                 } );
 		},
-
         // Media
         // Get a list of what media is most popular at the moment
         getPopular: function () {
