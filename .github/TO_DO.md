@@ -1,0 +1,1 @@
+- [ ] Create a function to handle error messages $.error in one place
