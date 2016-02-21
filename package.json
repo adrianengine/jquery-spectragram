@@ -1,0 +1,33 @@
+{
+  "name": "Spectragram",
+  "version": "1.0.0",
+  "description": "An easy jQuery plugin for Instagram API to fetch and display user, popular or tags photo feeds inside your web application or site.",
+  "main": "spectragram.js",
+  "author": "Adrian Quevedo <npm@adrianquevedo.com> (http://adrianquevedo.com/)",
+  "homepage": "http://spectragram.js.org",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adrianengine/jquery-spectragram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adrianengine/jquery-spectragram/issues"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "gallery",
+    "instagram",
+    "photos",
+    "spectragram"
+  ],
+  "devDependencies": {
+    "jshint": "^2.9.1",
+    "uglify-js": "^2.6.1"
+  },
+  "scripts": {
+    "build": "npm run lint && npm run minify",
+    "minify": "./node_modules/.bin/uglifyjs -o spectragram.min.js spectragram.js",
+    "lint": "jshint spectragram.js"
+  }
+}
