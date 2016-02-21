@@ -105,22 +105,25 @@ if ( typeof Object.create !== "function" ) {
 
         display: function ( results ) {
             var self = this,
-                max = ( self.options.max >= results.data.length ) ? results.data.length : self.options.max,
-                setSize = self.options.size,
+                max,
+                setSize,
                 size,
                 titleIMG;
 
-            if ( results.data.length === 0 ) {
-                self.$elem.append( $( self.options.wrapEachWith ).append( self.options.notFoundMsg ) );
+            if ( results.data === undefined || results.meta.code !== 200 || results.data.length === 0 ) {
+                this.$elem.append( $( this.options.wrapEachWith ).append( this.options.notFoundMessage ) );
             } else {
-				for ( var i = 0; i < max; i++ ) {
-					if ( setSize === "small" ) {
-						size = results.data[i].images.thumbnail.url;
-					} else if ( setSize === "medium" ) {
-						size = results.data[i].images.low_resolution.url;
-					} else {
-						size = results.data[i].images.standard_resolution.url;
-					}
+            	max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
+            	setSize = this.options.size;
+
+            	for ( var i = 0; i < max; i++ ) {
+            		if ( setSize === "small" ) {
+            			size = results.data[i].images.thumbnail.url;
+            		} else if ( setSize === "medium" ) {
+            			size = results.data[i].images.low_resolution.url;
+            		} else {
+            			size = results.data[i].images.standard_resolution.url;
+            		}
 
 					// Skip if the caption is empty.
 					if ( results.data[i].caption !== null ) {
@@ -138,7 +141,7 @@ if ( typeof Object.create !== "function" ) {
 					// Now concatenate the titleIMG generated.
 					self.$elem.append( $( self.options.wrapEachWith ).append( "<a " + titleIMG + " target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>" ) );
 				}
-            }
+			}
 
 			if ( typeof self.options.complete === "function" ) {
 				self.options.complete.call( self );
@@ -170,6 +173,7 @@ if ( typeof Object.create !== "function" ) {
     jQuery.fn.spectragram.options = {
 		complete : null,
 		max: 10,
+		notFoundMessage: "This user account is private or doesn't have any photos.",
 		query: "coffee",
 		size: "medium",
 		wrapEachWith: "<li></li>"
