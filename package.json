@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "An easy jQuery plugin for Instagram API to fetch and display user, popular or tags photo feeds inside your web application or site.",
   "main": "spectragram.js",
+  "files": [
+    "spectragram.js"
+  ],
   "author": "Adrian Quevedo <npm@adrianquevedo.com> (http://adrianquevedo.com/)",
   "homepage": "http://spectragram.js.org",
   "license": "MIT",
