@@ -107,11 +107,13 @@ if ( typeof Object.create !== "function" ) {
         },
 
         display: function ( results ) {
-            var self = this,
+            var $element,
+            	$image,
+            	imageGroup = [],
+                imageCaption,
                 max,
                 setSize,
-                size,
-                titleIMG;
+                size;
 
             if ( results.data === undefined || results.meta.code !== 200 || results.data.length === 0 ) {
                 this.$elem.append( $( this.options.wrapEachWith ).append( this.options.notFoundMessage ) );
@@ -119,35 +121,37 @@ if ( typeof Object.create !== "function" ) {
             	max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
             	setSize = this.options.size;
 
-            	for ( var i = 0; i < max; i++ ) {
-            		if ( setSize === "small" ) {
-            			size = results.data[i].images.thumbnail.url;
-            		} else if ( setSize === "medium" ) {
-            			size = results.data[i].images.low_resolution.url;
-            		} else {
-            			size = results.data[i].images.standard_resolution.url;
-            		}
-
-					// Skip if the caption is empty.
-					if ( results.data[i].caption !== null ) {
-						/**
-						* 1. First it creates a dummy element <span/>
-						* 2. And then puts the caption inside the element created previously.
-						* 3. Extracts the html caption (this allows html codes to be included).
-						* 4. Lastly, the most important part, create the Title attribute using double quotes
-						* to enclose the text. This fixes the bug when the caption retrieved from Instagram
-						* includes single quotes which breaks the Title attribute.
-						*/
-						titleIMG = "title='" + $( "<span/>" ).text( results.data[i].caption.text ).html() + "'";
+				for ( var i = 0; i < max; i++ ) {
+					if ( setSize === "small" ) {
+						size = results.data[i].images.thumbnail.url;
+					} else if ( setSize === "medium" ) {
+						size = results.data[i].images.low_resolution.url;
+					} else {
+						size = results.data[i].images.standard_resolution.url;
 					}
 
-					// Now concatenate the titleIMG generated.
-					self.$elem.append( $( self.options.wrapEachWith ).append( "<a " + titleIMG + " target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>" ) );
-				}
-			}
+					imageCaption = ( results.data[i].caption !== null ) ?
+									$( "<span>" ).text( results.data[i].caption.text ).html() :
+									this.options.defaultAltText + this.options.query;
 
-			if ( typeof self.options.complete === "function" ) {
-				self.options.complete.call( self );
+					$image = $( "<img>", {
+						src: size
+					} );
+
+					$element = $( "<a>", {
+						href: results.data[i].link,
+						target: "_blank",
+						title: imageCaption
+					} ).append( $image );
+
+					imageGroup.push( $( this.options.wrapEachWith ).append( $element ) );
+				}
+
+				this.$elem.append( imageGroup );
+            }
+
+			if ( typeof this.options.complete === "function" ) {
+				this.options.complete.call( this );
 			}
         }
     };
@@ -175,6 +179,7 @@ if ( typeof Object.create !== "function" ) {
     // Plugin Default Options
     jQuery.fn.spectragram.options = {
 		complete : null,
+		defaultAltText: "Instagram Photo related with ",
 		max: 10,
 		notFoundMessage: "This user account is private or doesn't have any photos.",
 		query: "coffee",
