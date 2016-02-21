@@ -1,188 +1,184 @@
 /*!
- * jQuery - Spectragram by Adrian Quevedo
- * http://adrianquevedo.com/  - http://lab.adrianquevedo.com/ - http://elnucleo.com.co/
+ * Spectragram by Adrian Quevedo (http://adrianquevedo.com/)
+ * http://spectragram.js.org/
  *
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Licensed under the MIT license.
  * You are free to use this plugin in commercial projects as long as the copyright header is left intact.
  *
- * This plugin uses the Instagram(tm) API and is not endorsed or certified by Instagram or Burbn, inc. 
- * All Instagram(tm) logos and trademarks displayed on this plugin are property of Burbn, Inc.
+ * This plugin uses the Instagram(tm) API and is not endorsed or certified by Instagram, Inc.
+ * All Instagram(tm) logos and trademarks displayed on this plugin are property of Instagram, Inc.
  *
- * Date: Thu Jul 15 14:05:02 2012 -0500
  */
- 
+
 // Utility for older browsers
-if (typeof Object.create !== 'function') {
-    Object.create = function (obj) {
-        function F() {};
+if ( typeof Object.create !== "function" ) {
+    Object.create = function ( obj ) {
+        function F () {}
         F.prototype = obj;
         return new F();
     };
 }
 
-(function ($, window, document, undefined) {
-	
+( function ( $, window, document, undefined ) {
+
 	var Instagram = {
 
-        //Initialize function
-        init: function (options, elem) {
-            var self = this;
+		API_URL: "https://api.instagram.com/v1",
 
-            self.elem = elem;
-            self.$elem = $(elem);
-
-            self.api = 'https://api.instagram.com/v1',
-			
-			self.accessData = $.fn.spectragram.accessData,
-						
-			self.options = $.extend({}, $.fn.spectragram.options, options);
+        // Initialize function
+        initialize: function ( options, elem ) {
+            this.elem = elem;
+            this.$elem = $( elem );
+			this.accessData = $.fn.spectragram.accessData,
+			this.accessToken = this.accessData.accessToken,
+			this.clientID = this.accessData.clientID,
+			this.userCredentials = this.clientID + "&access_token=" + this.accessToken + "",
+			this.options = $.extend( {}, $.fn.spectragram.options, options );
         },
 
-        //Users		
-		//Get the most recent media published by a user.
+        // Users
+		// Get the most recent media published by a user.
         getRecentMedia: function ( userID ) {
 			var self = this,
-				getData = '/users/' + userID + '/media/recent/?' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken +'';
-				
-                self.fetch(getData).done(function ( results ) {
-                    self.display(results);
-                });
+				getData = "/users/" + userID + "/media/recent/?" + self.userCredentials;
+
+                self.fetch( getData ).done( function ( results ) {
+                    self.display( results );
+                } );
 		},
-		
-		//Search for a user by name.
+
+		// Search for a user by name.
         getUserFeed: function () {
 			var self = this,
-				getData = '/users/search?q=' + self.options.query + '&count=' + self.options.max + '&access_token='+ self.accessData.accessToken + '';
+				getData = "/users/search?q=" + self.options.query + "&count=" + self.options.max + "&access_token=" + self.accessToken + "";
 
-				self.fetch(getData).done(function ( results ) {
-					if(results.data.length){
-						// only request media for exact match, otherwise 400 error
-						for (var length = results.data.length, i = 0; i < length; i++) {
-				        		if ( results.data[i].username === self.options.query) {
-				            			self.getRecentMedia(results.data[i].id);
-				           		}
+				self.fetch( getData ).done( function ( results ) {
+					if ( results.data.length ) {
+						// Only request media for exact match, otherwise 400 error
+						for ( var length = results.data.length, i = 0; i < length; i++ ) {
+							if ( results.data[i].username === self.options.query ) {
+								self.getRecentMedia( results.data[i].id );
+							}
 						}
-					}else{
-						$.error('Spectagram.js - Error: the username ' + self.options.query + ' does not exist.');
-					};
-                });        
+					} else {
+						$.error( "Spectragram.js - Error: the username " + self.options.query + " does not exist." );
+					}
+                } );
 		},
 
-        //Media
-        //Get a list of what media is most popular at the moment
+        // Media
+        // Get a list of what media is most popular at the moment
         getPopular: function () {
             var self = this,
-                getData = '/media/popular?client_id=' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken + '';
-                
-                self.fetch(getData).done(function ( results ) {
-                    self.display(results);
-                });
+                getData = "/media/popular?client_id=" + self.userCredentials;
+
+                self.fetch( getData ).done( function ( results ) {
+                    self.display( results );
+                } );
         },
 
-        //Tags
-        //Get a list of recently tagged media
+        // Tags
+        // Get a list of recently tagged media
         getRecentTagged: function () {
             var self = this,
-                getData = '/tags/' + self.options.query + '/media/recent?client_id=' + self.accessData.clientID + '&access_token='+ self.accessData.accessToken + '';
-                
-                self.fetch(getData).done(function ( results ) {                    
-					if(results.data.length){
-						self.display(results);
-					}else{
-						$.error('Spectagram.js - Error: the tag ' + self.options.query + ' does not have results.');
-					};
-                });
+                getData = "/tags/" + self.options.query + "/media/recent?client_id=" + self.userCredentials;
+
+                self.fetch( getData ).done( function ( results ) {
+					if ( results.data.length ) {
+						self.display( results );
+					} else {
+						$.error( "Spectragram.js - Error: the tag " + self.options.query + " does not have results." );
+					}
+                } );
         },
 
-        fetch: function (getData) {
-            var self = this,
-                getUrl = self.api + getData;
+        fetch: function ( getData ) {
+            var getUrl = this.API_URL + getData;
 
-            return $.ajax({
+            return $.ajax( {
                 type: "GET",
                 dataType: "jsonp",
                 cache: false,
                 url: getUrl
-            });
+            } );
         },
 
-        display: function (results) {
+        display: function ( results ) {
             var self = this,
+                max = ( self.options.max >= results.data.length ) ? results.data.length : self.options.max,
                 setSize = self.options.size,
-                size, max = (self.options.max >= results.data.length) ? results.data.length : self.options.max;
+                size,
+                titleIMG;
 
-            if (results.data.length === 0) {
-                self.$elem.append($(self.options.wrapEachWith).append(self.options.notFoundMsg));
-            }
-            else {
-				for (var i = 0; i < max; i++) {
-					if (setSize == "small") {
+            if ( results.data.length === 0 ) {
+                self.$elem.append( $( self.options.wrapEachWith ).append( self.options.notFoundMsg ) );
+            } else {
+				for ( var i = 0; i < max; i++ ) {
+					if ( setSize === "small" ) {
 						size = results.data[i].images.thumbnail.url;
-					}
-					else if (setSize == "medium") {
+					} else if ( setSize === "medium" ) {
 						size = results.data[i].images.low_resolution.url;
-					}
-					else {
+					} else {
 						size = results.data[i].images.standard_resolution.url;
 					}
 
-					var titleIMG;
 					// Skip if the caption is empty.
-					if ( results.data[i].caption != null ) {
+					if ( results.data[i].caption !== null ) {
 						/**
 						* 1. First it creates a dummy element <span/>
 						* 2. And then puts the caption inside the element created previously.
 						* 3. Extracts the html caption (this allows html codes to be included).
 						* 4. Lastly, the most important part, create the Title attribute using double quotes
-						* to enclose the text. This fixes the bug when the caption retrieved from Instagram 
+						* to enclose the text. This fixes the bug when the caption retrieved from Instagram
 						* includes single quotes which breaks the Title attribute.
 						*/
-						titleIMG = 'title="' + $('<span/>').text(results.data[i].caption.text).html() +'"';
+						titleIMG = "title='" + $( "<span/>" ).text( results.data[i].caption.text ).html() + "'";
 					}
 
 					// Now concatenate the titleIMG generated.
-					self.$elem.append($(self.options.wrapEachWith).append("<a " + titleIMG + " target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>"));
+					self.$elem.append( $( self.options.wrapEachWith ).append( "<a " + titleIMG + " target='_blank' href='" + results.data[i].link + "'><img src='" + size + "'></img></a>" ) );
 				}
             }
-			
-			if (typeof self.options.complete === 'function') {
-				self.options.complete.call(self);
+
+			if ( typeof self.options.complete === "function" ) {
+				self.options.complete.call( self );
 			}
         }
     };
-	
+
 	jQuery.fn.spectragram = function ( method, options ) {
-		
-		if(jQuery.fn.spectragram.accessData.clientID){
-		
+		if ( jQuery.fn.spectragram.accessData.clientID ) {
+
 			this.each( function () {
 				var instagram = Object.create( Instagram );
-				instagram.init( options, this );		
-				if( instagram[method] ) { 
+
+				instagram.initialize( options, this );
+
+				if ( instagram[method] ) {
 					return instagram[method]( this );
-				}else{ 
-					$.error( 'Method ' + method + ' does not exist on jQuery.spectragram' );
+				} else {
+					$.error( "Method " + method + " does not exist on jQuery.spectragram" );
 				}
 			});
-		
-		}else{
-			$.error( 'You must define an accessToken and a clientID on jQuery.spectragram' );
+
+		} else {
+			$.error( "You must define an accessToken and a clientID on jQuery.spectragram" );
 		}
     };
 
-    //Plugin Default Options
+    // Plugin Default Options
     jQuery.fn.spectragram.options = {
+		complete : null,
 		max: 10,
-		query: 'coffee',
-		size: 'medium',
-		wrapEachWith: '<li></li>',
-		complete : null 		
-    };
-	
-	//Instagram Access Data
-	jQuery.fn.spectragram.accessData = {
-        accessToken: null,
-		clientID: null        
+		query: "coffee",
+		size: "medium",
+		wrapEachWith: "<li></li>"
     };
 
-})(jQuery, window, document);
+	// Instagram Access Data
+	jQuery.fn.spectragram.accessData = {
+        accessToken: null,
+		clientID: null
+    };
+
+} )( jQuery, window, document );
