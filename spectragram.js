@@ -34,6 +34,11 @@ if ( typeof Object.create !== "function" ) {
 			this.clientID = this.accessData.clientID,
 			this.userCredentials = this.clientID + "&access_token=" + this.accessToken + "",
 			this.options = $.extend( {}, $.fn.spectragram.options, options );
+
+			this.messages = {
+				defaultImageAltText: "Instagram Photo related with " + this.options.query,
+				notFound: "This user account is private or doesn't have any photos."
+			};
         },
 
         // Users
@@ -116,7 +121,7 @@ if ( typeof Object.create !== "function" ) {
                 size;
 
             if ( results.data === undefined || results.meta.code !== 200 || results.data.length === 0 ) {
-                this.$elem.append( $( this.options.wrapEachWith ).append( this.options.notFoundMessage ) );
+                this.$elem.append( $( this.options.wrapEachWith ).append( this.messages.notFound ) );
             } else {
             	max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
             	setSize = this.options.size;
@@ -132,7 +137,7 @@ if ( typeof Object.create !== "function" ) {
 
 					imageCaption = ( results.data[i].caption !== null ) ?
 									$( "<span>" ).text( results.data[i].caption.text ).html() :
-									this.options.defaultAltText + this.options.query;
+									this.messages.defaultImageAltText;
 
 					$image = $( "<img>", {
 						src: size
@@ -179,10 +184,8 @@ if ( typeof Object.create !== "function" ) {
     // Plugin Default Options
     jQuery.fn.spectragram.options = {
 		complete : null,
-		defaultAltText: "Instagram Photo related with ",
 		max: 10,
-		notFoundMessage: "This user account is private or doesn't have any photos.",
-		query: "coffee",
+		query: "instagram",
 		size: "medium",
 		wrapEachWith: "<li></li>"
     };
