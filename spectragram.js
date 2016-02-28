@@ -114,14 +114,23 @@ if ( typeof Object.create !== "function" ) {
         display: function ( results ) {
             var $element,
             	$image,
+                isWrapperEmpty,
             	imageGroup = [],
                 imageCaption,
+                imageHeight,
+                imageWidth,
                 max,
                 setSize,
                 size;
 
+            isWrapperEmpty = $( this.options.wrapEachWith ).length === 0;
+
             if ( results.data === undefined || results.meta.code !== 200 || results.data.length === 0 ) {
-                this.$elem.append( $( this.options.wrapEachWith ).append( this.messages.notFound ) );
+            	if ( isWrapperEmpty ) {
+            		this.$elem.append( this.messages.notFound );
+            	} else {
+                	this.$elem.append( $( this.options.wrapEachWith ).append( this.messages.notFound ) );
+            	}
             } else {
             	max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
             	setSize = this.options.size;
@@ -129,10 +138,16 @@ if ( typeof Object.create !== "function" ) {
 				for ( var i = 0; i < max; i++ ) {
 					if ( setSize === "small" ) {
 						size = results.data[i].images.thumbnail.url;
+						imageHeight = results.data[i].images.thumbnail.height;
+						imageWidth = results.data[i].images.thumbnail.width;
 					} else if ( setSize === "medium" ) {
 						size = results.data[i].images.low_resolution.url;
+						imageHeight = results.data[i].images.low_resolution.height;
+						imageWidth = results.data[i].images.low_resolution.width;
 					} else {
 						size = results.data[i].images.standard_resolution.url;
+						imageHeight = results.data[i].images.standard_resolution.height;
+						imageWidth = results.data[i].images.standard_resolution.width;
 					}
 
 					imageCaption = ( results.data[i].caption !== null ) ?
@@ -140,6 +155,11 @@ if ( typeof Object.create !== "function" ) {
 									this.messages.defaultImageAltText;
 
 					$image = $( "<img>", {
+						alt: imageCaption,
+						attr: {
+							height: imageHeight,
+							width: imageWidth
+						},
 						src: size
 					} );
 
@@ -149,7 +169,11 @@ if ( typeof Object.create !== "function" ) {
 						title: imageCaption
 					} ).append( $image );
 
-					imageGroup.push( $( this.options.wrapEachWith ).append( $element ) );
+					if ( isWrapperEmpty ) {
+						imageGroup.push( $element );
+					} else {
+						imageGroup.push( $( this.options.wrapEachWith ).append( $element ) );
+					}
 				}
 
 				this.$elem.append( imageGroup );
