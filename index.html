@@ -15,7 +15,7 @@
 <!-- Humanstxt.org-->
 <link type="text/plain" rel="author" href="humans.txt" />
 <!-- CSS-->
-<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css' />
+<link href="//fonts.googleapis.com/css?family=Dosis" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/normalize.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" title="Spectragram" />
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -43,30 +43,30 @@
     <div class="intro">
         <div class="container">
             <h2>An easy jQuery plugin for <em>Instagram API</em> to fetch and display user, popular or tags photo feeds inside your web application or site.</h2>
-            <p class="links"><a href="https://raw.github.com/adrianengine/jquery-spectragram/master/spectragram.min.js" class="mainBtn download" target="_blank"><em></em>Download Spectragram <span>Minified 3kb</span></a> <a href="#docs" class="scndBtn howToBtn localLnk">Read the documentation</a></p>
+            <p class="links"><a href="//github.com/adrianengine/jquery-spectragram/releases" class="mainBtn download" target="_blank"><em></em>Download Spectragram <span>Minified 3kb</span></a> <a href="#docs" class="scndBtn howToBtn localLnk">Read the documentation</a></p>
             <div class="introPics"></div>
         </div>
     </div>
     <div class="socialShare">
-        <p class="container"><span>Share the love-a-gram!</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lab.adrianquevedo.com/jquery-spectragram/" data-text="Spectragram, an easy jQuery plugin for Instagram API." data-via="adrianengine" data-size="large">Tweet</a></p>
+        <p class="container"><span>Share the love-a-gram!</span> <a href="//twitter.com/share" class="twitter-share-button" data-url="http://spectragram.js.org/" data-text="Spectragram, an easy jQuery plugin for Instagram API." data-via="adrianengine" data-size="large">Tweet</a></p>
     </div>
 </header>
 <div class="container">
     <section class="miniDemo">
         <h2 class="title">What Spectragram can do</h2>
-        <div>
+        <div class="demo-column">
             <h3>Get a user feed</h3>
             <ul class="demoFeed userFeed">
             </ul>
             <p>Get the most recent media published by a user.</p>
         </div>
-        <div>
+        <div class="demo-column">
             <h3>Get popular photos</h3>
             <ul class="demoFeed popularFeed">
             </ul>
             <p>Get a list of what media is most popular at the moment.</p>
         </div>
-        <div>
+        <div class="demo-column">
             <h3>Get tagged photos</h3>
             <ul class="demoFeed tagsFeed">
             </ul>
@@ -74,7 +74,7 @@
         </div>
     </section>
     <div class="promo">
-        <p>Easy to use, start now <a href="https://raw.github.com/adrianengine/jquery-spectragram/master/spectragram.min.js" target="_blank" class="mainBtn">Download now</a> <a href="https://github.com/adrianengine/jquery-spectragram" target="_blank" class="thrdBtn">Fork on GitHub</a></p>
+        <p>Easy to use, start now <a href="//github.com/adrianengine/jquery-spectragram/releases" target="_blank" class="mainBtn">Download now</a> <a href="//github.com/adrianengine/jquery-spectragram" target="_blank" class="thrdBtn">Fork on GitHub</a></p>
     </div>
     <section id="docs">
         <h2 class="title">Documentation</h2>
@@ -88,7 +88,7 @@
                 <li>More features coming soon!</li>
             </ul>
             <h1>How to use</h1>
-            <p>In order to use the plugin you need to register an application at <a href="http://instagram.com/developer/" target="_blank">Instagram Developers</a>, get a <strong>client_id</strong> and <a href="http://instagram.com/developer/authentication/" target="_blank">recieve an access_token</a>.</p>
+            <p>In order to use the plugin you need to register an application at <a href="//instagram.com/developer/" target="_blank">Instagram Developers</a>, get a <strong>client_id</strong> and <a href="//instagram.com/developer/authentication/" target="_blank">recieve an access_token</a>.</p>
             <h3>Simple usage</h3>
             <ol>
                 <li>Be sure to have jQuery script included and then include the <strong>spectragram.js</strong> script right before the <code>&lt;/body&gt;</code> tag.
@@ -184,10 +184,11 @@ $('div').spectragram({
 <!-- Twitter Button Script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="script/jquery-1.7.2.min.js">\x3C/script>')</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="script/jquery-1.12.0.min.js">\x3C/script>')</script>
 <!-- script concatenated and minified-->
-<script src="spectragram.min.js"></script>
+<script src="//cdn.rawgit.com/adrianengine/jquery-spectragram/master/spectragram.min.js"></script>
+<script>window.jQuery.fn.spectragram || document.write('<script src="spectragram.min.js">\x3C/script>')</script>
 <script src="script/site.js"></script>
 
 <!-- SPECTRAGRAM DEMOS SCRIPT -->
