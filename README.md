@@ -1,6 +1,8 @@
 ![Spectragram](http://spectragram.js.org/i/logo.png)
 
+#On June 1, Instagram, which is owned by Facebook, [will stop allowing many third parties to access the images in its feeds](http://techcrunch.com/2015/11/17/just-instagram/).
 
+#This means you will no longer be able to fetch photos with spectragram after May 31.
 
 **spectragram.js** is a jQuery plugin using the **Instagram API** to fetch and display user, popular or tags photo feeds inside a list or any container you define.
 
