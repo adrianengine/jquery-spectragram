@@ -42,7 +42,7 @@
     <h1 class="logo">jQuery Spectragram</h1>
     <div class="intro">
         <div class="container">
-            <h2>An easy jQuery plugin for <em>Instagram API</em> to fetch and display user, popular or tags photo feeds inside your web application or site.</h2>
+            <h2>An easy jQuery plugin for <em>Instagram API</em> to fetch and display user photo feed inside your web application or site.</h2>
             <p class="links"><a href="//github.com/adrianengine/jquery-spectragram/releases" class="mainBtn download" target="_blank"><em></em>Download Spectragram <span>Minified 3kb</span></a> <a href="#docs" class="scndBtn howToBtn localLnk">Read the documentation</a></p>
             <div class="introPics"></div>
         </div>
@@ -55,22 +55,9 @@
     <section class="miniDemo">
         <h2 class="title">What Spectragram can do</h2>
         <div class="demo-column">
-            <h3>Get a user feed</h3>
             <ul class="demoFeed userFeed">
             </ul>
             <p>Get the most recent media published by a user.</p>
-        </div>
-        <div class="demo-column">
-            <h3>Get popular photos</h3>
-            <ul class="demoFeed popularFeed">
-            </ul>
-            <p>Get a list of what media is most popular at the moment.</p>
-        </div>
-        <div class="demo-column">
-            <h3>Get tagged photos</h3>
-            <ul class="demoFeed tagsFeed">
-            </ul>
-            <p>Get a list of recently tagged media.</p>
         </div>
     </section>
     <div class="promo">
@@ -211,22 +198,11 @@ $(document).ready(function(){
 	$('.userFeed').spectragram('getUserFeed', {
 		query: 'adrianengine', //this gets adrianengine's photo feed
 		size: 'small',
-		max: 4});
-
-	//Get a list of what media is most popular at the moment.
-	$('.popularFeed').spectragram('getPopular', {
-		size: 'small',
-		max: 4});
-
-	//Get a list of recently tagged media
-	$('.tagsFeed').spectragram('getRecentTagged', {
-		query: 'converse', //this gets the recent photo feed tagged with the word: converse
-		size: 'small',
-		max: 4});
+		max: 12});
 
 	//Set the wrapper HTML tag of the photos
-	$('.introPics').spectragram('getRecentTagged', {
-		query: 'vans', //this gets the recent photo feed tagged with the word: vans
+	$('.introPics').spectragram('getUserFeed', {
+		query: 'adrianengine', //this gets the recent photo feed tagged with the word: vans
 		max: 2,
 		wrapEachWith: '<span></span>'});
 });

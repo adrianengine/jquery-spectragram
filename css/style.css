@@ -257,11 +257,10 @@ header h2 {
 .miniDemo { overflow: hidden; }
 
 	.miniDemo div {
-		float: left;
 		font-size: 14px;
 		margin: 0 10px;
 		text-align: center;
-		width: 300px; }
+	}
 
 .demo-column ul {
 	padding: 0;
@@ -272,7 +271,10 @@ header h2 {
 	min-height: 300px;
 	overflow: hidden; }
 
-	.demoFeed li { float: left; }
+	.demoFeed li {
+		float: left;
+		margin: 0 2px;
+	}
 
 .promo {
 	-moz-border-radius: 20px;
