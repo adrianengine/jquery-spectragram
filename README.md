@@ -129,6 +129,19 @@ The maximum number of results to show. *Default: 10*
 
 The size of the photos. 'small', 'medium' or 'big'. *Default: 'medium'*
 
+**width**
+
+*Type: String*
+
+The width of the photos for the CSS width attribute *Default: inherit from size attribute*
+
+**height**
+
+*Type: String*
+
+The height of the photos for the CSS height attribute *Default: inherit from size attribute*
+
+
 **wrapEachWith**
 
 *Type: String*
