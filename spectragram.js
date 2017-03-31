@@ -162,7 +162,7 @@ if ( typeof Object.create !== "function" ) {
 						alt: imageCaption,
 						style: {
 							width: (WidthSetting == null ? imageWidth : WidthSetting),
-							width: (HeightSetting == null ? imageHeight : HeightSetting),
+							height: (HeightSetting == null ? imageHeight : HeightSetting),
 						},
 						src: size
 					} );
