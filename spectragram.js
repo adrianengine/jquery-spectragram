@@ -121,6 +121,8 @@ if ( typeof Object.create !== "function" ) {
                 imageWidth,
                 max,
                 setSize,
+		WidthSetting,
+		HeightSetting,
                 size;
 
             isWrapperEmpty = $( this.options.wrapEachWith ).length === 0;
@@ -134,6 +136,8 @@ if ( typeof Object.create !== "function" ) {
             } else {
             	max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
             	setSize = this.options.size;
+		WidthSetting = this.options.width;
+		HeightSetting = this.options.height;
 
 				for ( var i = 0; i < max; i++ ) {
 					if ( setSize === "small" ) {
@@ -156,9 +160,9 @@ if ( typeof Object.create !== "function" ) {
 
 					$image = $( "<img>", {
 						alt: imageCaption,
-						attr: {
-							height: imageHeight,
-							width: imageWidth
+						style: {
+							width: (WidthSetting == null ? imageWidth : WidthSetting),
+							width: (HeightSetting == null ? imageHeight : HeightSetting),
 						},
 						src: size
 					} );
@@ -211,7 +215,9 @@ if ( typeof Object.create !== "function" ) {
 		max: 10,
 		query: "instagram",
 		size: "medium",
-		wrapEachWith: "<li></li>"
+		wrapEachWith: "<li></li>",
+	    	width: null,
+	    	height: null
     };
 
 	// Instagram Access Data
