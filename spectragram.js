@@ -160,10 +160,7 @@ if ( typeof Object.create !== "function" ) {
 
 					$image = $( "<img>", {
 						alt: imageCaption,
-						style: {
-							width: (WidthSetting == null ? imageWidth : WidthSetting),
-							height: (HeightSetting == null ? imageHeight : HeightSetting),
-						},
+						style: "width: " + (WidthSetting == null ? imageWidth + "px" : WidthSetting) + "; height: " + (HeightSetting == null ? imageHeight + "px": HeightSetting),
 						src: size
 					} );
 
