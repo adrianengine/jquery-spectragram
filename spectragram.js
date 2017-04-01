@@ -114,6 +114,7 @@ if ( typeof Object.create !== "function" ) {
         display: function ( results ) {
             var $element,
             	$image,
+		heightSetting,
                 isWrapperEmpty,
             	imageGroup = [],
                 imageCaption,
@@ -121,9 +122,8 @@ if ( typeof Object.create !== "function" ) {
                 imageWidth,
                 max,
                 setSize,
-		WidthSetting,
-		HeightSetting,
-                size;
+		size,
+		widthSetting;
 
             isWrapperEmpty = $( this.options.wrapEachWith ).length === 0;
 
@@ -160,7 +160,7 @@ if ( typeof Object.create !== "function" ) {
 
 					$image = $( "<img>", {
 						alt: imageCaption,
-						style: "width: " + (WidthSetting == null ? imageWidth + "px" : WidthSetting) + "; height: " + (HeightSetting == null ? imageHeight + "px": HeightSetting),
+						style: "width: " + (WidthSetting === null ? imageWidth + "px" : WidthSetting) + "; height: " + (HeightSetting === null ? imageHeight + "px": HeightSetting),
 						src: size
 					} );
 
@@ -209,12 +209,12 @@ if ( typeof Object.create !== "function" ) {
     // Plugin Default Options
     jQuery.fn.spectragram.options = {
 		complete : null,
+	        height: null,
 		max: 10,
 		query: "instagram",
 		size: "medium",
-		wrapEachWith: "<li></li>",
 	    	width: null,
-	    	height: null
+		wrapEachWith: "<li></li>"	    	
     };
 
 	// Instagram Access Data
