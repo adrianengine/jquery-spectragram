@@ -9,41 +9,47 @@
 
 ---
 
-On June 1, Instagram, which is owned by Facebook, [will stop allowing many third parties to access the images in its feeds](http://techcrunch.com/2015/11/17/just-instagram/).
+# Platform Changees
+
+On June 1 2015, Instagram, which is owned by Facebook, [will stop allowing many third parties to access the images in its feeds](http://techcrunch.com/2015/11/17/just-instagram/).
 
 This means you will no longer be able to fetch photos form other users with spectragram after May 31.
 
+Please follow this instructions to make it work with your own sandboxed feed:
 [How to get Instagram API access token and fix your broken feed](https://github.com/adrianengine/jquery-spectragram/wiki/How-to-get-Instagram-API-access-token-and-fix-your-broken-feed)
+
+On April 4 2018, some endpoints this plugin use were deprecated:
+[Instagram Platform Changelog](https://www.instagram.com/developer/changelog/)
+
+**Please upgrade** in order to make your Instagram feed work again.
 
 ---
 
 # Features
 
-* Get the most recent media published by a user, the most popular media at the moment, or recently tagged media from Instagram API
+* Get the most recent or recently tagged media published by your user from Instagram API
 * Display the results on list items or any other HTML tag you define
 * Define the size of the pictures (small, medium, big)
-* Use your own Instagram application ClientID and AccessToken
-* More features coming soon!
+* Use your own Instagram application AccessToken
 
 # How to use
 
-In order to use the plugin you need to register an application at [Instagram Developers](http://instagram.com/developer/), get a **client_id** and [recieve an access_token](http://instagram.com/developer/authentication/).
+In order to use the plugin you need to register an application at [Instagram Developers](http://instagram.com/developer/), and [recieve an access_token](http://instagram.com/developer/authentication/).
 
 ### Simple usage
 
-1. Be sure to have jQuery script included and then include the **spectragram.js** script right before the ``` </body>``` tag.
+1. Be sure to have jQuery script included and then include the **spectragram.min.js** script right before the ``` </body>``` tag.
 
 ``` html
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
- <script type="text/javascript" src="js/spectragram.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script type="text/javascript" src="js/spectragram.min.js"></script>
 ```
 
-1. Set your Instagram ```accessToken```, ```clientID``` and the query:
+1. Set your Instagram ```accessToken``` and the query (username or tag):
 
 ``` javascript
 jQuery.fn.spectragram.accessData = {
-	accessToken: 'your-instagram-access-token',
-	clientID: 'your-instagram-application-clientID'
+	accessToken: 'your-instagram-access-token'
 };
 ```
 
@@ -55,14 +61,14 @@ $('ul').spectragram('getRecentTagged',{
 });
 ```
 
-*This example will show 10 or less results for photos tagged "converse" in a list, "medium" sized.*
+*This example will show 20 or less results for photos tagged "converse" in a list, "medium" sized.*
 
 ## Configuration
 
 ``` javascript
 .spectragram( Method, [Options] )
 
-Method: getUserFeed, getPopular or getRecentTagged functions
+Method: getUserFeed or getRecentTagged functions
 
 Options: An array to configure the properties of spectragram
 ```
@@ -71,29 +77,28 @@ Options: An array to configure the properties of spectragram
 
 **getUserFeed**
 
-Get the most recent media published by a user.
+Get the most recent media published by the owner of the access_token.
 
 ``` javascript
-$('ul').spectragram('getUserFeed',{
-	query: 'adrianengine'
+$('.container').spectragram('getUserFeed',{
+	complete : myCallbackFunc(),
+	max: 10,
+	size: "small",
+	wrapEachWith: '<div class="photo">'
 });
-```
-
-**getPopular**
-
-Get a list of what media is most popular at the moment.
-
-``` javascript
-$('ul').spectragram('getPopular');
 ```
 
 **getRecentTagged**
 
-Get a list of recently tagged media.
+Get a list of recently tagged media by the owner of the access_token.
 
 ``` javascript
 $('ul').spectragram('getRecentTagged',{
-	query: 'converse'
+	complete : myCallbackFunc(),
+	max: 20,
+	query: "converse",
+	size: "medium",
+	wrapEachWith: "<li></li>"
 });
 ```
 
@@ -105,13 +110,7 @@ $('ul').spectragram('getRecentTagged',{
 
 This is your Instagram Application AccessToken. *Default: Null*
 
-**clientID** (required)
-
-*Type: String*
-
-This is your Instagram Application Client ID. *Default: Null*
-
-**query** (required)
+**query** (required for getRecentTagged)
 
 *Type: String*
 
@@ -121,7 +120,7 @@ The string to search. *Default: 'coffee'*
 
 *Type: Number*
 
-The maximum number of results to show. *Default: 10*
+A number between 1 and 20 of photos to show. *Default: 20*
 
 **size**
 
@@ -145,16 +144,15 @@ A callback function to execute after the display of the photos. *Default: 'null'
 
 ``` javascript
 jQuery.fn.spectragram.accessData = {
-	accessToken: 'your-instagram-access-token',
-	clientID: 'your-instagram-application-clientID'
+	accessToken: 'your-instagram-access-token'
 };
 
-$('div').spectragram({
-	query: 'converse',
-	max: 14,
-	size: 'big',
-	wrapEachWith: '<p></p>',
-	complete: alert('Done!');
+$('ul').spectragram('getRecentTagged',{
+	complete : myCallbackFunc(),
+	max: 20,
+	query: "converse",
+	size: "medium",
+	wrapEachWith: "<li></li>"
 });
 ```
 
