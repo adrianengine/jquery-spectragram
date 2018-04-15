@@ -9,13 +9,16 @@ html{ background: #fff url(../i/bg-html.png) 0 0 repeat; }
 body {
 	color: #333;
 	line-height: 1;
-	font: normal 62.5% Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 62.5%;
+	font-size: calc(16px + 8 * ((100vw - 400px)/ 960));
 	vertical-align: top; }
 
 .container {
 	margin: 0 auto;
 	position: relative;
-	width: 960px; }
+	max-width: 960px;
+	width: 90%; }
 
 /* =2 LINKS
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––*/
@@ -113,11 +116,12 @@ a.thrdBtn{
 /*Download Button*/
 .download {
 	font-size: 18px;
-	height: 43px;
 	margin-left: 20px;
+	max-width: 300px;
 	padding: 10px 0 10px 75px;
 	position: relative;
-	width: 208px; }
+	width: 90%;
+}
 
 	.download span {
 		display: block;
@@ -125,20 +129,23 @@ a.thrdBtn{
 		margin-top: 5px;
 		text-shadow: none; }
 
-	.download em {
+	.download::before {
 		-moz-transition: -moz-transform 1s ease-in-out;
 		-o-transition: -o-transform 1s ease-in-out;
 		-webkit-transition: -webkit-transform 1s ease-in-out;
 		background: url(../i/iconBtn.png) 0 0 no-repeat;
+		content: '';
 		display: block;
 		height: 79px;
 		left: -20px;
 		position: absolute;
 		top: -5px;
 		transition: transform 1s ease-in-out;
-		width: 80px; }
+		width: 80px;
+		will-change: transform;
+	}
 
-	.download:hover em {
+	.download:hover::before {
 		-moz-transform: rotate(720deg);
 		-ms-transform: rotate(720deg);
 		-o-transform: rotate(720deg);
@@ -148,10 +155,11 @@ a.thrdBtn{
 /*How to use*/
 .howToBtn {
 	font-size: 18px;
-	height: 22px;
-	padding: 20px 0;
+	padding: 20px;
 	text-align: center;
-	width: 220px; }
+	max-width: 320px;
+	width: 90%;
+}
 
 /* =3 HEADINGS
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––*/
@@ -162,15 +170,17 @@ header h2 {
 	font-size: 28px;
 	line-height: 120%;
 	margin: 10px 0 20px;
-	text-shadow: 0px 1px 1px #000;
-	width: 620px; }
+	max-width: 620px;
+	text-shadow: 0 1px 1px #000;
+}
 
 .title {
 	color: #333;
-	font: normal 56px Dosis, Arial, Helvetica, sans-serif;
+	font-family: Dosis, Arial, Helvetica, sans-serif;
+	font-size: 2.5em;
 	margin: 30px 0;
 	text-align: center;
-	text-shadow: 0px 1px 1px #000;
+	text-shadow: 0 1px 1px #000;
 	text-transform: uppercase; }
 
 .miniDemo h3 {
@@ -188,21 +198,33 @@ header h2 {
 
 .logo {
 	background: url(../i/logo.png) center no-repeat;
+	background-size: contain;
 	display: block;
 	height: 93px;
 	margin: 30px auto;
 	overflow: hidden;
 	text-indent: 100%;
 	white-space: nowrap;
-	width: 500px; }
+	max-width: 500px;
+	width: 80%;
+}
 
 .links {
-	overflow: hidden;
-	padding: 10px 0; }
+	padding: 10px 0;
+}
 
 	.links a {
-		float: left;
-		margin-right: 20px; }
+		box-sizing: border-box;
+		display: inline-block;
+		margin: 18px;
+		vertical-align: middle;
+	}
+
+	@media screen and (min-width: 50em) {
+		.links a {
+			margin: 0 20px 0 0;
+		}
+	}
 
 .socialShare {
 	background-color: #fff;
@@ -215,10 +237,18 @@ header h2 {
 		vertical-align: top; }
 
 .introPics {
-	position: absolute;
-	right: 20px;
-	top: -40px;
-	width: 212px; }
+	display: none;
+}
+
+@media screen and (min-width: 51em) {
+	.introPics {
+		display: block;
+		position: absolute;
+		right: 20px;
+		top: -40px;
+		width: 212px;
+	}
+}
 
 	.introPics span {
 		-moz-box-shadow: 0 1px 3px #000;
@@ -262,6 +292,12 @@ header h2 {
 		text-align: center;
 	}
 
+@media screen and (min-width: 64em) {
+	.demo-column {
+		padding: 4em 0;
+	}
+}
+
 .demo-column ul {
 	padding: 0;
 }
@@ -272,8 +308,9 @@ header h2 {
 	overflow: hidden; }
 
 	.demoFeed li {
-		float: left;
-		margin: 0 2px;
+		box-sizing: border-box;
+		display: inline-block;
+		padding: 0 2px;
 	}
 
 .promo {
@@ -285,146 +322,26 @@ header h2 {
 	font: normal 32px Dosis, Arial, Helvetica, sans-serif;
 	margin: 20px 0;
 	overflow: hidden;
-	padding: 0 20px; }
+	padding: 0 20px;
+	text-align: center; }
 
 	.promo p { margin: 20px 0; }
 
 	.promo a {
-		float: right;
+		box-sizing: border-box;
+		display: block;
 		font-size: 22px;
-		margin-left: 20px;
-		padding: 5px 0;
-		text-align: center;
-		width: 220px; }
+		padding: 10px 0;
+		margin: 5% auto;
+	}
 
-article {
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	background-color: #fff;
-	border-radius: 10px;
-	border: solid 1px #eee;
-	color: black;
-	font: 16px helvetica,arial,freesans,clean,sans-serif;
-	line-height: 1.4em;
-	margin: 20px 0;
-	padding: 20px; }
-
-	article p {
-		line-height: 1.5em;
-		margin: 1em 0; }
-
-	article table {
-		font-size: inherit;
-		font: 100%;
-		margin: 1em; }
-
-		article table th {
-			border-bottom: 1px solid #bbb;
-			padding: .2em 1em; }
-
-		article table td {
-			border-bottom: 1px solid #ddd;
-			padding: .2em 1em; }
-
-	article input[type=text], article input[type=password], article input[type=image], article textarea { font: 99% helvetica,arial,freesans,sans-serif; }
-
-	article select, article option { padding: 0 .25em; }
-
-	article optgroup { margin-top: .5em; }
-
-	article pre, article code { font: 12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace; }
-
-	article pre {
-		-moz-border-radius: 3px;
-		-webkit-border-radius: 3px;
-		-webkit-box-shadow: rgba(0,0,0,0.07) 0 1px 2px inset;
-		background-color: #eee;
-		border-radius: 3px;
-		border: 1px solid #ddd;
-		color: #444;
-		font-size: 12px;
-		line-height: 1.5em;
-		margin: 1em 0;
-		overflow: auto;
-		padding: 5px; }
-
-		article pre code {
-			background-color: #eee;
-			border: none;
-			font-size: 12px;
-			padding: 0; }
-
-	article code {
-		background-color: #f8f8ff;
-		border: 1px solid #dedede;
-		color: #444;
-		font-size: 12px;
-		padding: 0 .2em; }
-
-	article img {
-		border: 0;
-		max-width: 100%; }
-
-	article abbr { border-bottom: none; }
-
-	article a {
-		color: #4183c4;
-		text-decoration: none; }
-
-		article a:hover { text-decoration: underline; }
-
-		article a code,article a:link code,article a:visited code { color: #4183c4; }
-
-	article h2, article h3 { margin: 1em 0; }
-
-	article h1,article h2,article h3,article h4,article h5,article h6 { border: 0; }
-
-	article h1 {
-		border-top: 4px solid #aaa;
-		font-size: 170%;
-		margin-top: 1.5em;
-		padding-top: .5em; }
-
-		article h1:first-child {
-			border-top: none;
-			margin-top: 0;
-			padding-top: .25em; }
-
-	article h2 {
-		border-top: 4px solid #e0e0e0;
-		font-size: 150%;
-		margin-top: 1.5em;
-		padding-top: .5em; }
-
-	article h3 { margin-top: 1em; }
-
-	article hr { border: 1px solid #ddd; }
-
-	article ul { margin: 1em 0 1em; }
-
-	article ol { margin: 1em 0 1em; }
-
-	article ul li,article ol li {
-		margin-bottom: .5em;
-		margin-top: .5em; }
-
-	article ul ul,article ul ol,article ol ol,article ol ul {
-		margin-bottom: 0;
-		margin-top: 0; }
-
-	article blockquote {
-		border-left: 5px solid #ddd;
-		color: #555;
-		margin: 1em 0;
-		padding-left: .6em; }
-
-	article dt {
-		font-weight: bold;
-		margin-left: 1em; }
-
-	article dd {
-		margin-bottom: 1em;
-		margin-left: 2em; }
+	@media screen and (min-width: 51em) {
+		.promo a {
+			display: inline-block;
+			margin: 0 0 0 40px;
+			width: 220px;
+		}
+	}
 
 .example {
 	list-style: none;
@@ -445,7 +362,8 @@ footer {
 .legalNote {
 	float: left;
 	font-size: 10px;
-	width: 378px; }
+	max-width: 378px;
+	width: 100%; }
 
 .signature {
 	float: right;
