@@ -29,79 +29,56 @@ if ( typeof Object.create !== "function" ) {
         initialize: function ( options, elem ) {
             this.elem = elem;
             this.$elem = $( elem );
-			this.accessData = $.fn.spectragram.accessData,
-			this.accessToken = this.accessData.accessToken,
-			this.clientID = this.accessData.clientID,
-			this.userCredentials = this.clientID + "&access_token=" + this.accessToken + "",
+			this.accessToken = $.fn.spectragram.accessData.accessToken,
 			this.options = $.extend( {}, $.fn.spectragram.options, options );
+			this.endpoints = this.setEndpoints();
 
 			this.messages = {
 				defaultImageAltText: "Instagram Photo related with " + this.options.query,
 				notFound: "This user account is private or doesn't have any photos."
 			};
-        },
-
-        // Users
-		// Get the most recent media published by a user.
-        getRecentMedia: function ( userID ) {
-			var self = this,
-				getData = "/users/" + userID + "/media/recent/?" + self.userCredentials;
-
-                self.fetch( getData ).done( function ( results ) {
-                    self.display( results );
-                } );
 		},
 
-		// Search for a user by name.
+		// Set Endpoints
+		// Returns an object of endpoints to use on the app
+		setEndpoints: function () {
+			return {
+				usersSelf: "/users/self/?access_token=" + this.accessToken,
+				usersMediaRecent: "/users/self/media/recent/?&count=" + this.options.max + "&access_token=" + this.accessToken,
+				tagsMediaRecent: "/tags/" + this.options.query + "/media/recent?&count=" + this.options.max + "&access_token=" + this.accessToken
+			}
+		},
+
+		// Get Photos
+		// Call the fetch function and work with the response
+		getPhotos: function ( endpoint ) {
+			var self = this;
+
+			self.fetch( endpoint ).done( function ( results ) {
+				var status = self.options.query || 'User';
+
+				if ( results.data.length ) {
+					self.display( results );
+				} else {
+					$.error( "Spectragram.js - Error: " + status + " does not have photos." );
+				}
+			} );
+		},
+
+		// Users
+		// Get the most recent media published by the owner of the access_token.
         getUserFeed: function () {
-			var self = this,
-				getData = "/users/search?q=" + self.options.query + "&count=" + self.options.max + "&access_token=" + self.accessToken + "",
-				isUsernameValid = false;
-
-				self.fetch( getData ).done( function ( results ) {
-					if ( results.data.length ) {
-						// Only request media for exact match of username
-						for ( var length = results.data.length, i = 0; i < length; i++ ) {
-							if ( results.data[i].username === self.options.query ) {
-								self.getRecentMedia( results.data[i].id );
-								isUsernameValid = true;
-							}
-						}
-					}
-
-					if ( isUsernameValid === false ) {
-						$.error( "Spectragram.js - Error: the username " + self.options.query + " does not exist." );
-					}
-                } );
+			this.getPhotos( this.endpoints.usersMediaRecent );
 		},
-        // Media
-        // Get a list of what media is most popular at the moment
-        getPopular: function () {
-            var self = this,
-                getData = "/media/popular?client_id=" + self.userCredentials;
-
-                self.fetch( getData ).done( function ( results ) {
-                    self.display( results );
-                } );
-        },
 
         // Tags
         // Get a list of recently tagged media
         getRecentTagged: function () {
-            var self = this,
-                getData = "/tags/" + self.options.query + "/media/recent?client_id=" + self.userCredentials;
-
-                self.fetch( getData ).done( function ( results ) {
-					if ( results.data.length ) {
-						self.display( results );
-					} else {
-						$.error( "Spectragram.js - Error: the tag " + self.options.query + " does not have results." );
-					}
-                } );
+            this.getPhotos( this.endpoints.tagsMediaRecent );
         },
 
         fetch: function ( getData ) {
-            var getUrl = this.API_URL + getData;
+			var getUrl = this.API_URL + getData;
 
             return $.ajax( {
                 type: "GET",
@@ -186,7 +163,7 @@ if ( typeof Object.create !== "function" ) {
     };
 
 	jQuery.fn.spectragram = function ( method, options ) {
-		if ( jQuery.fn.spectragram.accessData.clientID ) {
+		if ( jQuery.fn.spectragram.accessData.accessToken ) {
 
 			this.each( function () {
 				var instagram = Object.create( Instagram );
@@ -201,14 +178,14 @@ if ( typeof Object.create !== "function" ) {
 			});
 
 		} else {
-			$.error( "You must define an accessToken and a clientID on jQuery.spectragram" );
+			$.error( "You must define an accessToken on jQuery.spectragram" );
 		}
     };
 
     // Plugin Default Options
     jQuery.fn.spectragram.options = {
 		complete : null,
-		max: 10,
+		max: 20,
 		query: "instagram",
 		size: "medium",
 		wrapEachWith: "<li></li>"
@@ -216,8 +193,7 @@ if ( typeof Object.create !== "function" ) {
 
 	// Instagram Access Data
 	jQuery.fn.spectragram.accessData = {
-        accessToken: null,
-		clientID: null
+        accessToken: null
     };
 
 } )( jQuery, window, document );
