@@ -57,7 +57,7 @@ if ( typeof Object.create !== "function" ) {
 			self.fetch( endpoint ).done( function ( results ) {
 				var status = self.options.query || 'User';
 
-				if ( results.data.length ) {
+				if ( results.data && results.data.length ) {
 					self.display( results );
 				} else {
 					$.error( "Spectragram.js - Error: " + status + " does not have photos." );
@@ -74,7 +74,7 @@ if ( typeof Object.create !== "function" ) {
         // Tags
         // Get a list of recently tagged media
         getRecentTagged: function () {
-            this.getPhotos( this.endpoints.tagsMediaRecent );
+            $.error( "This endpoint has been retired" );
         },
 
         fetch: function ( getData ) {
