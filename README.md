@@ -56,8 +56,8 @@ jQuery.fn.spectragram.accessData = {
 1. Call **spectagram** function on the container element and pass it your query:
 
 ``` javascript
-$('ul').spectragram('getRecentTagged',{
-	query: 'converse'
+$('ul').spectragram('getUserFeed', {
+	size: 'big'
 });
 ```
 
@@ -68,7 +68,7 @@ $('ul').spectragram('getRecentTagged',{
 ``` javascript
 .spectragram( Method, [Options] )
 
-Method: getUserFeed or getRecentTagged functions
+Method: getUserFeed function
 
 Options: An array to configure the properties of spectragram
 ```
@@ -88,20 +88,6 @@ $('.container').spectragram('getUserFeed',{
 });
 ```
 
-**getRecentTagged**
-
-Get a list of recently tagged media by the owner of the access_token.
-
-``` javascript
-$('ul').spectragram('getRecentTagged',{
-	complete : myCallbackFunc(),
-	max: 20,
-	query: "converse",
-	size: "medium",
-	wrapEachWith: "<li></li>"
-});
-```
-
 ### Options
 
 **accessToken** (required)
@@ -109,12 +95,6 @@ $('ul').spectragram('getRecentTagged',{
 *Type: String*
 
 This is your Instagram Application AccessToken. *Default: Null*
-
-**query** (required for getRecentTagged)
-
-*Type: String*
-
-The string to search. *Default: 'coffee'*
 
 **max**
 
@@ -147,10 +127,9 @@ jQuery.fn.spectragram.accessData = {
 	accessToken: 'your-instagram-access-token'
 };
 
-$('ul').spectragram('getRecentTagged',{
+$('ul').spectragram('getUserFeed',{
 	complete : myCallbackFunc(),
-	max: 20,
-	query: "converse",
+	max: 4,
 	size: "medium",
 	wrapEachWith: "<li></li>"
 });
