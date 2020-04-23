@@ -9,17 +9,21 @@
 
 ---
 
-# Platform Changees
+# Instagram Platform Changes
 
-On June 1 2015, Instagram, which is owned by Facebook, [will stop allowing many third parties to access the images in its feeds](http://techcrunch.com/2015/11/17/just-instagram/).
+- On June 1 2015, Instagram, which is owned by Facebook, [will stop allowing many third parties to access the images in its feeds](http://techcrunch.com/2015/11/17/just-instagram/).
 
-This means you will no longer be able to fetch photos form other users with spectragram after May 31.
+- This means you will no longer be able to fetch photos form other users with spectragram after May 31.
 
-Please follow this instructions to make it work with your own sandboxed feed:
-[How to get Instagram API access token and fix your broken feed](https://github.com/adrianengine/jquery-spectragram/wiki/How-to-get-Instagram-API-access-token-and-fix-your-broken-feed)
+- ~~Please follow this instructions to make it work with your own sandboxed feed:
+[How to get Instagram API access token and fix your broken feed](https://github.com/adrianengine/jquery-spectragram/wiki/How-to-get-Instagram-API-access-token-and-fix-your-broken-feed)~~ **Update:** Not longer valid.
 
-On April 4 2018, some endpoints this plugin use were deprecated:
+- On April 4 2018, some endpoints this plugin use were deprecated:
 [Instagram Platform Changelog](https://www.instagram.com/developer/changelog/)
+
+- Instagram Legacy API Will be disabled. [Facebook announced the API will work until March 31, 2020.](https://developers.facebook.com/blog/post/2020/03/10/final-reminder-Instagram-legacy-api-platform-disabled-mar-31/) **Update** will be deprecated on June 29, 2020.
+
+- Spectragram.js has been updated to use the new Instagram Basic Display API, please follow the [new Token process](https://github.com/adrianengine/jquery-spectragram/wiki/Register-on-Instagram-Basic-Display-API-and-get-an-Access-Token).
 
 **Please upgrade** in order to make your Instagram feed work again.
 
@@ -27,16 +31,22 @@ On April 4 2018, some endpoints this plugin use were deprecated:
 
 # Features
 
-* Get the most recent or recently tagged media published by your user from Instagram API
-* Display the results on list items or any other HTML tag you define
-* Define the size of the pictures (small, medium, big)
-* Use your own Instagram application AccessToken
+* Get the most recent media published by one user from the Instagram Basic Display API.
+* Display the results on list items or any other HTML tag you define,
+* Define the size of the pictures (small, medium, large).
+* Use your own Instagram application AccessToken.
 
-# How to use
+# Before You Start
 
-In order to use the plugin you need to register an application at [Instagram Developers](http://instagram.com/developer/), and [recieve an access_token](http://instagram.com/developer/authentication/).
+In order to use the plugin you will need:
+- A [Facebook Developer Account](https://developers.facebook.com/apps).
+- A public [Instagram Account](https://www.instagram.com/?fbclid=IwAR2DQDyKisGKXB678NN4dqMYQJc9KzIrlYrfJrYFOYq2OmYn72DbG3i1PFE) with media, and its user login credentials.
 
-### Simple usage
+## Register an app and get an Access Token
+
+Please [follow the instructions](https://github.com/adrianengine/jquery-spectragram/wiki/Register-on-Instagram-Basic-Display-API-and-get-an-Access-Token) to get an Access Token from the Wiki.
+
+# Plugin Simple Usage
 
 1. Be sure to have jQuery script included and then include the **spectragram.min.js** script right before the ``` </body>``` tag.
 
@@ -45,7 +55,7 @@ In order to use the plugin you need to register an application at [Instagram Dev
  <script type="text/javascript" src="js/spectragram.min.js"></script>
 ```
 
-1. Set your Instagram ```accessToken``` and the query (username or tag):
+1. Set your Instagram ```accessToken```:
 
 ``` javascript
 jQuery.fn.spectragram.accessData = {
@@ -53,72 +63,33 @@ jQuery.fn.spectragram.accessData = {
 };
 ```
 
-1. Call **spectagram** function on the container element and pass it your query:
+1. Call **spectagram** function on the container element and pass it your custom options:
 
 ``` javascript
-$('ul').spectragram('getUserFeed', {
-	size: 'big'
+$('ul').spectragram({
+	size: 'small'
 });
 ```
 
-*This example will show 20 or less results for photos tagged "converse" in a list, "medium" sized.*
+*This example will show 25 or less photos in a list, "small" sized.*
 
 ## Configuration
 
 ``` javascript
-.spectragram( Method, [Options] )
-
-Method: getUserFeed function
-
-Options: An array to configure the properties of spectragram
-```
-
-### Methods
-
-**getUserFeed**
-
-Get the most recent media published by the owner of the access_token.
-
-``` javascript
-$('.container').spectragram('getUserFeed',{
-	complete : myCallbackFunc(),
-	max: 10,
-	size: "small",
-	wrapEachWith: '<div class="photo">'
-});
+.spectragram( Options )
 ```
 
 ### Options
 
-**accessToken** (required)
+An object to configure the properties of spectragram:
 
-*Type: String*
-
-This is your Instagram Application AccessToken. *Default: Null*
-
-**max**
-
-*Type: Number*
-
-A number between 1 and 20 of photos to show. *Default: 20*
-
-**size**
-
-*Type: String*
-
-The size of the photos. 'small', 'medium' or 'big'. *Default: 'medium'*
-
-**wrapEachWith**
-
-*Type: String*
-
-The HTML tag to wrap every result. *Default: '\<li>\</li>'*
-
-**complete**
-
-*Type: Function*
-
-A callback function to execute after the display of the photos. *Default: 'null'*
+| Name             	| Required 	| Type       	| Default       	| Description                                                     	|
+|------------------	|----------	|------------	|---------------	|-----------------------------------------------------------------	|
+| **accessToken**  	| Yes      	| *String*   	| `null`        	| This is your Instagram Application AccessToken.                 	|
+| **max**          	| No       	| *Number*   	| `25`          	| A number between 1 and 25 of photos to show.                    	|
+| **size**         	| No       	| *String*   	| `large`       	| The size of the photos. 'small', 'medium' or 'large'.           	|
+| **wrapEachWith** 	| No       	| *String*   	| `'<li></li>'` 	| The HTML tag to wrap every result.                              	|
+| **complete**     	| No       	| *Function* 	| `null`        	| A callback function to execute after the display of the photos. 	|
 
 ### Example
 
@@ -127,7 +98,7 @@ jQuery.fn.spectragram.accessData = {
 	accessToken: 'your-instagram-access-token'
 };
 
-$('ul').spectragram('getUserFeed',{
+$('ul').spectragram({
 	complete : myCallbackFunc(),
 	max: 4,
 	size: "medium",
@@ -147,8 +118,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Further notes
 
-Developed by [Adrian Quevedo](http://adrianquevedo.com) in Bogotá - Colombia.
+Maintained by [Adrian Quevedo](https://github.com/adrianengine).
 
 This code is provided with no warranty. While I strive to maintain backwards compatibility, the code is still under active development. As this is the case, some revisions may break compatibility with earlier versions of the library. Please keep this in mind when using the plugin.
 
-This plugin uses the Instagram(tm) API and is not endorsed or certified by Instagram or Instagram, inc. All Instagram(tm) trademarks displayed on this plugin are property of Instagram, Inc.
+This plugin uses the Instagram Basic Display API and is not endorsed or certified by Instagram or Facebook, inc. All Instagram© trademarks displayed on this plugin are property of Facebook, Inc.
