@@ -1,40 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html class="no-js" lang="en">
 <head>
-<title>jQuery Spectragram</title>
-<!-- Meta Tags -->
-<meta charset="utf-8" />
-<meta name="author" content="Adrian Quevedo" />
-<meta name="keywords" content="jquery, open source, spectragram, instagram api, instagram gallery, photo feed, instagram" />
-<meta name="description" content="Spectragram is a jQuery plugin using the Instagram API to fetch and display user or tags photo feeds inside a list or any container you define." />
-<meta name="robots" content="all" />
-<!-- Mobile viewport optimized: j.mp/bplateviewport -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<!-- Favicon and home link-->
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<!-- Humanstxt.org-->
-<link type="text/plain" rel="author" href="humans.txt" />
-<!-- CSS-->
-<link href="//fonts.googleapis.com/css?family=Dosis" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="css/normalize.css" type="text/css" media="all" />
-<link rel="stylesheet" href="css/style.css" type="text/css" media="all" title="Spectragram" />
-<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-<!-- ANALYTICS -->
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-7061904-1']);
-  _gaq.push(['_setDomainName', 'adrianquevedo.com']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+    <meta charset="UTF-8">
+    <meta name="author" content="Adrian Quevedo">
+    <meta name="description" content="Spectragram is a jQuery plugin using the Instagram Basic Display API to fetch and display a public user media inside a list or any container you define.">
+    <meta name="keywords" content="jquery, open source, spectragram, Instagram Basic Display API, instagram gallery, photo feed, instagram">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and home link-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Humanstxt.org-->
+    <link type="text/plain" rel="author" href="humans.txt">
+    <!-- CSS-->
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/normalize.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" title="Spectragram">
+    <!--[if IE]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><![endif]-->
+    <title>jQuery Spectragram</title>
 </head>
 
 <body>
@@ -42,16 +24,16 @@
     <h1 class="logo">jQuery Spectragram</h1>
     <div class="intro">
         <div class="container">
-            <h2>An easy jQuery plugin for <em>Instagram API</em> to fetch and display user or tag photo feed inside your web application or site.</h2>
+            <h2>An easy jQuery plugin for <em>Instagram Basic Display API</em> to fetch and display a public user media inside your web application or site.</h2>
             <nav class="links">
-                <a href="//github.com/adrianengine/jquery-spectragram/releases" class="mainBtn download">Download Spectragram <span>Minified 3kb</span></a>
-                <a href="//github.com/adrianengine/jquery-spectragram/#readme" class="scndBtn howToBtn">Open Documentation</a>
+                <a href="https://github.com/adrianengine/jquery-spectragram/releases" class="mainBtn download">Download Spectragram <span>Minified 3kb</span></a>
+                <a href="https://github.com/adrianengine/jquery-spectragram/#readme" class="scndBtn howToBtn">Open Documentation</a>
             </nav>
             <div class="introPics"></div>
         </div>
     </div>
     <div class="socialShare">
-        <p class="container"><span>Share with love!</span> <a href="//twitter.com/share" class="twitter-share-button" data-url="http://spectragram.js.org/" data-text="Spectragram, an easy jQuery plugin for Instagram API." data-via="adrianengine" data-size="large">Tweet</a></p>
+        <p class="container"><span>Share with love!</span> <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://spectragram.js.org/" data-text="Spectragram, an easy jQuery plugin for Instagram Basic Display API." data-via="adrianengine" data-size="large">Tweet</a></p>
     </div>
 </header>
 <div class="container">
@@ -63,22 +45,22 @@
         </div>
     </section>
     <div class="promo">
-        <p>Easy to use, start now <a href="//github.com/adrianengine/jquery-spectragram/releases" class="mainBtn">Download now</a> <a href="//github.com/adrianengine/jquery-spectragram" class="thrdBtn">Fork on GitHub</a></p>
+        <p>Easy to use, start now <a href="https://github.com/adrianengine/jquery-spectragram/releases" class="mainBtn">Download now</a> <a href="https://github.com/adrianengine/jquery-spectragram" class="thrdBtn">Fork on GitHub</a></p>
     </div>
 </div>
 <footer>
     <div class="container">
-        <p class="legalNote">This plugin/demo site uses the Instagram&trade; API and is not endorsed or certified by Instagram, Inc. All Instagram&trade; logos and trademarks displayed on this plugin are property of Instagram, Inc.</p>
-        <p class="signature"><a href="http://lab.adrianquevedo.com/">Developed by Adrian Quevedo</a></p>
+        <p class="legalNote">This plugin/demo site uses the Instagram&trade; Basic Display API and is not endorsed or certified by Instagram or Facebook, inc. All Instagram&trade; trademarks displayed on this site are property of Facebook, Inc.</p>
+        <p class="signature"><a href="https://lab.adrianquevedo.com/">Developed by Adrian Quevedo</a></p>
     </div>
 </footer>
 <!-- Twitter Button Script -->
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="script/jquery-3.3.1.min.js">\x3C/script>')</script>
+<script src="https://unpkg.com/jquery@3.5.0/dist/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="script/jquery-3.5.0.min.js">\x3C/script>')</script>
 <!-- script concatenated and minified-->
-<script src="//cdn.rawgit.com/adrianengine/jquery-spectragram/1.1.0/spectragram.min.js"></script>
+<script src="https://unpkg.com/spectragram@2.0.0/spectragram.min.js"></script>
 <script>window.jQuery.fn.spectragram || document.write('<script src="spectragram.min.js">\x3C/script>')</script>
 <script src="script/site.js"></script>
 
@@ -98,15 +80,23 @@ $(document).ready(function(){
 
 	//Call spectagram function on the container element and pass it your query
 	//Get the most recent media published by a user.
-	$('.userFeed').spectragram('getUserFeed', {
+	$('.userFeed').spectragram({
 		size: 'small',
-		max: 12});
+		max: 12
+    });
 
 	//Set the wrapper HTML tag of the photos
-	$('.introPics').spectragram('getUserFeed', {
+	$('.introPics').spectragram({
 		max: 2,
-		wrapEachWith: '<span></span>'});
+		wrapEachWith: '<span></span>'
+    });
 });
 </script>
+
+<script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-7061904-1', 'auto'); ga('set', 'anonymizeIp', true); ga('set','transport','beacon'); ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 </html>

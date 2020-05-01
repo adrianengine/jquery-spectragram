@@ -23,62 +23,50 @@ if ( typeof Object.create !== "function" ) {
 
 	var Instagram = {
 
-		API_URL: "https://api.instagram.com/v1",
+		API_URL: "https://graph.instagram.com/me/media?fields=",
+		API_FIELDS: "caption,media_url,media_type,permalink,timestamp,username",
 
-        // Initialize function
+		/**
+		 * Initializes the plugin.
+		 * @param {object} options
+		 * @param {jQuery Object} elem
+		 */
         initialize: function ( options, elem ) {
             this.elem = elem;
             this.$elem = $( elem );
 			this.accessToken = $.fn.spectragram.accessData.accessToken,
 			this.options = $.extend( {}, $.fn.spectragram.options, options );
-			this.endpoints = this.setEndpoints();
 
 			this.messages = {
-				defaultImageAltText: "Instagram Photo related with " + this.options.query,
+				defaultImageAltText: "Instagram Photo",
 				notFound: "This user account is private or doesn't have any photos."
 			};
+
+			this.getPhotos();
 		},
 
-		// Set Endpoints
-		// Returns an object of endpoints to use on the app
-		setEndpoints: function () {
-			return {
-				usersSelf: "/users/self/?access_token=" + this.accessToken,
-				usersMediaRecent: "/users/self/media/recent/?&count=" + this.options.max + "&access_token=" + this.accessToken,
-				tagsMediaRecent: "/tags/" + this.options.query + "/media/recent?&count=" + this.options.max + "&access_token=" + this.accessToken
-			}
-		},
-
-		// Get Photos
-		// Call the fetch function and work with the response
-		getPhotos: function ( endpoint ) {
+		/**
+		 * Calls the fetch function and work with the response.
+		 */
+		getPhotos: function () {
 			var self = this;
 
-			self.fetch( endpoint ).done( function ( results ) {
-				var status = self.options.query || 'User';
-
-				if ( results.data.length ) {
-					self.display( results );
+			self.fetch().done( function ( results ) {
+				if ( results.data && results.data.length ) {
+					self.displayPhotos( results );
+				} else if ( results.error.message ) {
+					$.error( "Spectragram.js - Error: " + results.error.message );
 				} else {
-					$.error( "Spectragram.js - Error: " + status + " does not have photos." );
+					$.error( "Spectragram.js - Error: user does not have photos." );
 				}
 			} );
 		},
 
-		// Users
-		// Get the most recent media published by the owner of the access_token.
-        getUserFeed: function () {
-			this.getPhotos( this.endpoints.usersMediaRecent );
-		},
-
-        // Tags
-        // Get a list of recently tagged media
-        getRecentTagged: function () {
-            this.getPhotos( this.endpoints.tagsMediaRecent );
-        },
-
-        fetch: function ( getData ) {
-			var getUrl = this.API_URL + getData;
+		/**
+		 * Makes the ajax call and returns the result.
+		 */
+        fetch: function () {
+			var getUrl = this.API_URL + this.API_FIELDS + "&access_token=" + this.accessToken;
 
             return $.ajax( {
                 type: "GET",
@@ -88,60 +76,63 @@ if ( typeof Object.create !== "function" ) {
             } );
         },
 
-        display: function ( results ) {
+		/**
+		 * Appends the markup to the DOM with the images.
+		 * @param {object} results
+		 */
+        displayPhotos: function ( results ) {
             var $element,
             	$image,
-                isWrapperEmpty,
+				hasCaption,
+				isWrapperEmpty,
+				isImage,
             	imageGroup = [],
                 imageCaption,
-                imageHeight,
-                imageWidth,
                 max,
-                setSize,
-                size;
+				size;
+
+			var sizeChart = {
+				"small": 160,
+				"medium": 320,
+				"large": 640
+			};
 
             isWrapperEmpty = $( this.options.wrapEachWith ).length === 0;
+			max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
+			size = sizeChart[this.options.size];
 
-            if ( results.data === undefined || results.meta.code !== 200 || results.data.length === 0 ) {
+            if ( results.data === undefined || results.data.length === 0 ) {
             	if ( isWrapperEmpty ) {
             		this.$elem.append( this.messages.notFound );
             	} else {
                 	this.$elem.append( $( this.options.wrapEachWith ).append( this.messages.notFound ) );
-            	}
-            } else {
-            	max = ( this.options.max >= results.data.length ) ? results.data.length : this.options.max;
-            	setSize = this.options.size;
+				}
 
-				for ( var i = 0; i < max; i++ ) {
-					if ( setSize === "small" ) {
-						size = results.data[i].images.thumbnail.url;
-						imageHeight = results.data[i].images.thumbnail.height;
-						imageWidth = results.data[i].images.thumbnail.width;
-					} else if ( setSize === "medium" ) {
-						size = results.data[i].images.low_resolution.url;
-						imageHeight = results.data[i].images.low_resolution.height;
-						imageWidth = results.data[i].images.low_resolution.width;
-					} else {
-						size = results.data[i].images.standard_resolution.url;
-						imageHeight = results.data[i].images.standard_resolution.height;
-						imageWidth = results.data[i].images.standard_resolution.width;
-					}
+				return;
+			}
 
-					imageCaption = ( results.data[i].caption !== null ) ?
-									$( "<span>" ).text( results.data[i].caption.text ).html() :
+			for ( var i = 0; i < max; i++ ) {
+
+				isImage = results.data[i].media_type === "IMAGE";
+
+				if (isImage) {
+					hasCaption = results.data[i].caption !== null || results.data[i].caption !== undefined;
+
+					imageCaption = ( hasCaption ) ?
+									$( "<span>" ).text( results.data[i].caption ).html() :
 									this.messages.defaultImageAltText;
 
 					$image = $( "<img>", {
 						alt: imageCaption,
 						attr: {
-							height: imageHeight,
-							width: imageWidth
+							height: size,
+							width: size
 						},
-						src: size
+						src: results.data[i].media_url
 					} );
 
 					$element = $( "<a>", {
-						href: results.data[i].link,
+						href: results.data[i].permalink,
 						target: "_blank",
 						title: imageCaption
 					} ).append( $image );
@@ -151,10 +142,11 @@ if ( typeof Object.create !== "function" ) {
 					} else {
 						imageGroup.push( $( this.options.wrapEachWith ).append( $element ) );
 					}
-				}
 
-				this.$elem.append( imageGroup );
-            }
+				}
+			}
+
+			this.$elem.append( imageGroup );
 
 			if ( typeof this.options.complete === "function" ) {
 				this.options.complete.call( this );
@@ -162,19 +154,16 @@ if ( typeof Object.create !== "function" ) {
         }
     };
 
-	jQuery.fn.spectragram = function ( method, options ) {
+	/**
+	 * Spectragram Plugin Definition.
+	 */
+	jQuery.fn.spectragram = function ( options ) {
 		if ( jQuery.fn.spectragram.accessData.accessToken ) {
 
 			this.each( function () {
 				var instagram = Object.create( Instagram );
 
 				instagram.initialize( options, this );
-
-				if ( instagram[method] ) {
-					return instagram[method]( this );
-				} else {
-					$.error( "Method " + method + " does not exist on jQuery.spectragram" );
-				}
 			});
 
 		} else {
@@ -182,16 +171,15 @@ if ( typeof Object.create !== "function" ) {
 		}
     };
 
-    // Plugin Default Options
+    // Plugin Default Options.
     jQuery.fn.spectragram.options = {
 		complete : null,
-		max: 20,
-		query: "instagram",
-		size: "medium",
+		max: 25,
+		size: "large",
 		wrapEachWith: "<li></li>"
     };
 
-	// Instagram Access Data
+	// Instagram Access Data.
 	jQuery.fn.spectragram.accessData = {
         accessToken: null
     };

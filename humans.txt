@@ -1,18 +1,18 @@
 /* TEAM */
 	UI/Front-end/Back-end developer: Adrian Quevedo
 	Twitter: @adrianengine
-	From: Bogotá, Colombia	
+	From: Bogotá, Colombia
 
 /* SITE */
-	Last update:2012/Jul/24
+	Last update:2020/April/30
 	Language: English
 	Doctype: HTML5
-	IDE/Software: Fireworks, Sublime Text 2
-	             
+	IDE/Software: Fireworks, Visual Studio Code
 
-              _      _                ____                           _       
-     /\      | |    (_)              / __ \                         | |      
-    /  \   __| |_ __ _  __ _ _ __   | |  | |_   _  _____   _____  __| | ___  
-   / /\ \ / _` | '__| |/ _` | '_ \  | |  | | | | |/ _ \ \ / / _ \/ _` |/ _ \ 
+
+              _      _                ____                           _
+     /\      | |    (_)              / __ \                         | |
+    /  \   __| |_ __ _  __ _ _ __   | |  | |_   _  _____   _____  __| | ___
+   / /\ \ / _` | '__| |/ _` | '_ \  | |  | | | | |/ _ \ \ / / _ \/ _` |/ _ \
   / ____ \ (_| | |  | | (_| | | | | | |__| | |_| |  __/\ V /  __/ (_| | (_) |
- /_/    \_\__,_|_|  |_|\__,_|_| |_|  \___\_\\__,_|\___| \_/ \___|\__,_|\___/ 
+ /_/    \_\__,_|_|  |_|\__,_|_| |_|  \___\_\\__,_|\___| \_/ \___|\__,_|\___/
