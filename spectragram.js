@@ -146,11 +146,15 @@ if ( typeof Object.create !== "function" ) {
 				}
 			}
 
-			this.$elem.append( imageGroup );
-
-			if ( typeof this.options.complete === "function" ) {
-				this.options.complete.call( this );
-			}
+			var t = this;
+			this.$elem.append(imageGroup).append(function () {
+				/**
+				 * Nested appends makes sure that we fire the callback function after the DOM has been actually updated
+				 */
+				if (typeof t.options.complete === "function") {
+					t.options.complete.call(t);
+				}
+			});
         }
     };
 
