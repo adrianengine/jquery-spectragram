@@ -89,7 +89,7 @@ An object to configure the properties of spectragram:
 | **max**          	| No       	| *Number*   	| `25`          	| A number between 1 and 25 of photos to show.                    	|
 | **size**         	| No       	| *String*   	| `large`       	| The size of the photos. 'small', 'medium' or 'large'.           	|
 | **wrapEachWith** 	| No       	| *String*   	| `'<li></li>'` 	| The HTML tag to wrap every result.                              	|
-| **complete**     	| No       	| *Function* 	| `null`        	| A callback function to execute after the display of the photos. 	|
+| **complete**     	| No       	| *Function* 	| `null`        	| A callback function to execute after the display of the photos. The function takes one argument - the `spectragram` object that called this function.	|
 
 ### Example
 
