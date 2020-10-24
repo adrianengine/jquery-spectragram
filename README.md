@@ -99,7 +99,7 @@ jQuery.fn.spectragram.accessData = {
 };
 
 $('ul').spectragram({
-	complete : myCallbackFunc(),
+	complete : myCallbackFunc,
 	max: 4,
 	size: "medium",
 	wrapEachWith: "<li></li>"
